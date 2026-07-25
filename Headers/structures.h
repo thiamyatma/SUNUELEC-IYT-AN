@@ -3,7 +3,7 @@
 /*Le contrat d'opération qui permet la declaration de toutes les structures du projet. 
  On pourra ensuite appeller ces structures dans les fichiers .c pour les utiliser*/
 
-/* CREATION DE LA STRUCTURE NOEUD*/
+/* DEFINITION DE LA STRUCTURE NOEUD*/
 typedef struct {
     char id[4];
     char nom[30];
@@ -14,7 +14,7 @@ typedef struct {
     float cos_phi;
 } Noeud;
 
-/*CREATION DE LA STRUCTURE POINT COURBE*/
+/*DEFINITION DE LA STRUCTURE POINT COURBE*/
 typedef Struct {
     int heure;
     float p_solaire_KW;
@@ -23,7 +23,7 @@ typedef Struct {
     float taux_charge;
 } PointCourbe;
 
-/*CREATION DE LA STRUCTURE EVENEMENT*/
+/*DEFINITION DE LA STRUCTURE EVENEMENT*/
 typedef struct{
     char horodotage[20];
     char type[20];
