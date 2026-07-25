@@ -29,4 +29,14 @@ J'ai juste ajouté la fonction classique int main que l'on compilera plutard
 Ajout d'un [fichier de commande git](commands-collaborateur-github.md)   
 pour collaboration
 
+# Ajout fonctionnalité Menu par Assatou:
+Elle a développé les fonctionnalités menu :  
+fichiers concernés:  
+[menu-Source](Sources/menu.c)  
+[menu-Header](Headers/menu.h)
+
+# Correction [ajout-menu](Sources/menu.c) Après vérifications:
+j'ai supprimmé les accents non encondés et un point virgule omis  
+à la ligne 45.
+
 
