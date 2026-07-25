@@ -28,5 +28,6 @@ J'ai juste ajouté la fonction classique int main que l'on compilera plutard
 # Modification dans README.MD
 Ajout d'un [fichier de commande git](commands-collaborateur-github.md)   
 pour collaboration
-
+# Ajout des fichiers menu.h et menu.c
+on a implémenter l'affichage du menu et le gsetion des choix de l'utilisateur
 
