@@ -18,7 +18,7 @@ int charger_noeuds(const char *nom_fichier, Noeud *tableau, int n_noeud){
     return (lus == (size_t)n_noeud);
 }
 
-// 2. Écriture dans le CSV à partir de la structure CourbeCharge
+// 2. Ã‰criture dans le CSV Ã  partir de la structure CourbeCharge
 int enregistrer_courbe_charge(const char *nom_fichier, CourbeCharge donnees) {
     FILE *file = fopen(nom_fichier, "w");
     if (file == NULL) return 0;
@@ -38,34 +38,34 @@ int ajouter_evenement(const char *nom_fichier, const char *evenement) {
     return 1;
 }
 
-// 4. Génération du rapport TXT formaté à partir des structures Noeud et DonneesBilan
+// 4. GÃ©nÃ©ration du rapport TXT formatÃ© Ã  partir des structures Noeud et DonneesBilan
 int generer_bilan_journalier(const char *nom_fichier, const char *date, Noeud *noeuds, int n_noeud, DonneesBilan bilan) {
     FILE *file = fopen(nom_fichier, "w");
     if (file == NULL) return 0;
 
-    double conso_totale = 0.0;
+    float conso_totale = 0.0;
     fprintf(file, "========================================\n");
-    fprintf(file, "BILAN ÉNERGÉTIQUE - %s\n", date);
+    fprintf(file, "BILAN Ã‰NERGÃ‰TIQUE - %s\n", date);
     fprintf(file, "========================================\n\n");
-    fprintf(file, "CONSOMMATION PAR NŒUD (kWh)\n");
+    fprintf(file, "CONSOMMATION PAR NÅ’UD (kWh)\n");
     for (int i = 0; i < n_noeud; i++){
         fprintf(file, "%-3s %-16s : %5.1f kWh\n", noeuds[i].id, noeuds[i].nom, noeuds[i].consommation);
         conso_totale += noeuds[i].consommation;
     }
     fprintf(file, "...\n\n");
 
-    double total_dispo = bilan.prod_solaire + bilan.prod_reseau;
+    float total_dispo = bilan.prod_solaire + bilan.prod_reseau;
     fprintf(file, "PRODUCTION TOTALE\n");
     fprintf(file, "%-19s : %5.1f kWh\n", "Solaire", bilan.prod_solaire);
-    fprintf(file, "%-19s : %5.1f kWh\n", "Réseau national", bilan.prod_reseau);
+    fprintf(file, "%-19s : %5.1f kWh\n", "RÃ©seau national", bilan.prod_reseau);
     fprintf(file, "%-19s : %5.1f kWh\n\n", "Total disponible", total_dispo);
 
-    double taux_pv = (total_dispo > 0) ? (bilan.prod_solaire / total_dispo) * 100.0 : 0.0;
+    float taux_pv = (total_dispo > 0) ? (bilan.prod_solaire / total_dispo) * 100.0 : 0.0;
     fprintf(file, "STATISTIQUES\n");
     fprintf(file, "%-19s : %5.1f kWh\n", "Consommation totale", conso_totale);
     fprintf(file, "%-19s : %5.1f %%\n", "Taux couverture PV", taux_pv);
-    fprintf(file, "%-19s : %8d\n", "Nb délestages", bilan.nb_delestages);
-    fprintf(file, "%-19s : %8d\n", "Nb rétablissements", bilan.nb_retablissements);
+    fprintf(file, "%-19s : %8d\n", "Nb dÃ©lestages", bilan.nb_delestages);
+    fprintf(file, "%-19s : %8d\n", "Nb rÃ©tablissements", bilan.nb_retablissements);
     fprintf(file, "Sauvegarder bilan : OK\n");
     fprintf(file, "========================================\n");
 
