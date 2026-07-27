@@ -4,8 +4,8 @@
 
 // Structure pour le rapport bilan_JJ-MM-AAAA.txt
 typedef struct {
-    double prod_solaire;
-    double prod_reseau;
+    float prod_solaire;
+    float prod_reseau;
     int nb_delestages;
     int nb_retablissements;
 } DonneesBilan;
