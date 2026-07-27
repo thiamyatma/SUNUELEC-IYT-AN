@@ -39,7 +39,7 @@ int ajouter_evenement(const char *nom_fichier, const char *evenement) {
 }
 
 // 4. Génération du rapport TXT formaté à partir des structures Noeud et DonneesBilan
-int generer_bilan_journalier(const char *nom_fichier, const char *date, Noeud *noeuds, int n_noeuds, DonneesBilan bilan) {
+int generer_bilan_journalier(const char *nom_fichier, const char *date, Noeud *noeuds, int n_noeud, DonneesBilan bilan) {
     FILE *file = fopen(nom_fichier, "w");
     if (file == NULL) return 0;
 
