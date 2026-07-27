@@ -1,4 +1,4 @@
-#define <stdio.h>
+#include <stdio.h>
 #include "../Headers/menu.h"
  void afficher_menu(){
      printf("===SUPERVISION RESEAU ELECTRIQUE===\n");
