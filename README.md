@@ -82,4 +82,5 @@ gcc main.c Sources/initialisation.c -I Headers -o SUNUELEC
 
 après cela , nous pouvons exécuté le fichier avec la commande : .\SUNUELEC.exe
 
-
+# créattion de la gestion des fichiers
+J'ai créé dans le fichier headers les structures de la gestion des fichiers en appelant structures.h pour les structures noeud et courbe charge et je l'ai développé dans le fichier sources; ce qui m'a donné du vrai fil à retordre pour l'insertion dans le GitHub.
