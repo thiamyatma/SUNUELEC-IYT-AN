@@ -6,7 +6,11 @@
      printf("2. Afficher etat actuel des noeuds\n");
      printf("3. Simuler une heure\n");
      printf("4. Declencher delestage manuel\n");
+<<<<<<< HEAD
+     printf("5. Afficher bilan jornalier\n");
+=======
      printf("5. Afficher bilan journalier\n");
+>>>>>>> origin
      printf("6. Exporter rapport journalier\n");
      printf("7. Quitter\n");
      printf("Faite un choix :\n");
