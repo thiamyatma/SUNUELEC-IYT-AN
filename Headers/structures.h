@@ -1,5 +1,9 @@
 #ifndef STRUCTURES_H
 #define STRUCTURES_H
+
+#define NB_NOEUDS 12
+#define NB_POINTS_COURBE 24
+#define MAX_EVENTS 200
 /*Le contrat d'opération qui permet la declaration de toutes les structures du projet. 
  On pourra ensuite appeller ces structures dans les fichiers .c pour les utiliser*/
 
@@ -15,7 +19,7 @@ typedef struct {
 } Noeud;
 
 /*DEFINITION DE LA STRUCTURE POINT COURBE*/
-typedef Struct {
+typedef struct {
     int heure;
     float p_solaire_KW;
     float p_reseau_KW;
@@ -32,8 +36,6 @@ typedef struct{
     float valeur;
 } Evenement;
 
-#define NB_NOEUDS 12
-#define NB_POINTS_COURBE 24
-#define MAX_EVENTS 200
+
 
 #endif // STRUCTURES_H
