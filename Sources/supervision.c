@@ -57,5 +57,17 @@ float calcul_taux_charge_pct(float p_charge, float p_dispo){
 /*Cette fonction retourne la production totale disponible (solaire + réseau).
 à une heure donnée.
 Elle utilise une interpolation linéaire si heure ne correspond pas à un point exact*/
-float calcul_production_disponible(PointCourbe courbe[], int n, int heure);
+float calcul_production_disponible(PointCourbe courbe[], int n, int heure){
+    int i;
+    for(i=0; i<n; i++){
+        
+        if (courbe[i].heure == heure){ //Ici on cherche l'heure demandé
+            
+            return courbe[i].p_solaire_KW + courbe[i].p_reseau_KW; //aditionne product solaire + reseau 
+
+        }
+
+    }
+    return 0;
+}
 

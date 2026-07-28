@@ -99,6 +99,21 @@ Cette fonction retourne le taux de charge en %. actifs  . Cette fonction génèr
 p_charge est la puissance consommé par les noeuds 
 p_dispo est la production disponible ( solaire + reseau)
 [clique ici pour voir le code du test](Tests/code_test_taux_charge.png)  
-[clique ici pour voir le resultat du test](Tests/resultat_taux_charge_test.png)  
+[clique ici pour voir le resultat du test](Tests/resultat_taux_charge_test.png) 
+
+# Yatma : codage de la fonction calcul_production_disponible(PointCourbe courbe[], int n, int heure)  
+/*Cette fonction retourne la production totale disponible (solaire + réseau).
+à une heure donnée. [voir le code](Sources/supervision.c)
+## Remaque
+Pour l'instant , on a pas encore implémenter l'interpolation linéaire dans le cas ou l'heure ne correspond pas exactement . Faison le test avec 5 données de la courbe.
+
+### Resultat du test :
+ [Voir le code pour le test ](Tests/code_test_production_dispo2_heure.png)
+ [Voir le code pour le test_Suite](Tests/code_test_production_dispo1_heure.png)  
+ 
+ [voir le resultat du test](Tests/resultat_production_dispo_12heure.png)
+
+
+
 
 
