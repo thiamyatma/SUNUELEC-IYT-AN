@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "Headers/structures.h"
-#include "../Headers/supervision.h" #Je remonte d'un dossier
+#include "../Headers/structures.h"
+#include "../Headers/supervision.h" //Je remonte d'un dossier vers Headers
 #include <math.h>
 
 /*Cette fonction somme et retourne les puissances 
@@ -32,10 +32,27 @@ Elle enregistre chaque rétablissement.
 */
 void retablissement_progressif(Noeud noeuds[], int n, float marge_KW, Evenement events[], int *nb_events);
 
-/*Cette fonction retourne le taux de charge en %. 
-Elle génère une ALERTE CONSOLE si le taux est > 90%
+/*Cette fonction retourne le taux de charge en %. p_charge est la puissance consommér par les noeuds actifs  
+p_dispo est la production disponible ( solaire + reseau)
+Cette fonction génère une ALERTE CONSOLE si le taux est > 90%
 ou une ALERTE CRITIQUE si le taux est > 100%.*/
-float calcul_taux_charge_pct(float p_charge, float p_dispo);
+float calcul_taux_charge_pct(float p_charge, float p_dispo){
+    float taux;
+    if(p_dispo <=0){
+        return 0;  // puisqu'on va diviser par p_dispo , donc elle ne devrait pas etre nulle
+    }
+    taux = (p_charge/p_dispo) * 100;  // le calcul du taux de charge
+
+    if (taux > 100){
+        printf("ALERTE CRITIQUE!!! : surcharge du reseau\n"); // cas ou p_charge > p_dispo
+
+    }
+    else if (taux > 90){
+        printf("Alerte : reseau charge a plus de 90%%\n");
+
+    }
+    return taux;
+}
 
 /*Cette fonction retourne la production totale disponible (solaire + réseau).
 à une heure donnée.
