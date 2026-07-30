@@ -17,7 +17,7 @@ int main(){
     int nb_events = 0;
     int nb_coupes;
 
-    nb_coupes = delestage_automatique(noeuds,NB_NOEUDS,13.0,events,&nb_events);
+    nb_coupes = delestage_automatique(noeuds,NB_NOEUDS,40.0,events,&nb_events);
     printf("Nombre de noeuds coupes: %d\n", nb_coupes);
 
     for(i =0; i< NB_NOEUDS; i++){

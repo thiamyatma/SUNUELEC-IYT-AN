@@ -38,6 +38,18 @@ int delestage_automatique(Noeud noeuds[], int n, float deficit_KW, Evenement eve
             }
         }
     }
+    // si deficit exite encore : delestage priorite 2
+    for(i=0; i<n; i++){
+        if (noeuds[i].priorite ==2 && noeuds[i].etat ==1){
+            noeuds[i].etat = 0;
+            deficit_KW -= noeuds[i].puissance_KW;
+            nb_coupes++;
+
+            if (deficit_KW <= 0){
+                return nb_coupes;
+            }
+        }
+    }
     return nb_coupes;
 }
 
