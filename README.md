@@ -133,6 +133,33 @@ est suffisante . Et Chaque retablissement est enregistré dans le tableau des é
 
 [voir-resultat-test](Tests/resultat_retablissement.png)
 
+# Implémentation de la fonction calcul_energie_noeud
+
+
+Cette fonction calcule l'énergie consommée par un nœud pendant une journée
+avec la méthode numérique des trapèzes.  
+ Test réalisé :
+- Nœud testé : N01 Hôpital
+- Puissance : 8.5 kW
+- Énergie calculée : 195.50 kWh
+
+## Calcul énergie de tous les noeuds
+
+fonction calculer_energie_tous_noeuds().
+
+elle parcourt l'ensemble des charges du réseau et met à jour
+le champ energie_KWh de chaque noeud.
+
+Test réalisé sur les 12 noeuds :
+- N01 Hôpital : 195.50 kWh
+- N02 École : 96.60 kWh
+- ...
+- N12 Divers : 41.40 kWh
+
+[voir le reste des resultats](Tests/resultat-energie-tous-noeuds.png)
+
+
+
 
 
 
