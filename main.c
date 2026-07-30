@@ -36,6 +36,13 @@ int main(){
             noeuds[i].etat);
     }
 
+    printf("\n======RETABLISSEMENT=======\n");
+    retablissement_progressif(noeuds, NB_NOEUDS, 15.0, events, &nb_events);
+
+    for (i=0; i< NB_NOEUDS; i++){
+        printf("%s - Etat : %d\n", noeuds[i].id, noeuds[i].etat);
+    }
+
    
 
     

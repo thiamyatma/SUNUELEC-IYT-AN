@@ -66,7 +66,46 @@ int delestage_automatique(Noeud noeuds[], int n, float deficit_KW, Evenement eve
 dans l'ordre inverse (priorité d'abord) dès que la marge le permet.
 Elle enregistre chaque rétablissement.
 */
-void retablissement_progressif(Noeud noeuds[], int n, float marge_KW, Evenement events[], int *nb_events);
+// Retablissement des noeuds de priorité 2
+int i;
+void retablissement_progressif(Noeud noeuds[], int n, float marge_KW, Evenement events[], int *nb_events){
+    for (i=0; i<n; i++){
+        if(noeuds[i].priorite == 2 && noeuds[i].etat ==0){
+            if(marge_KW >= noeuds[i].puissance_KW){
+                noeuds[i].etat = 1;
+                marge_KW -= noeuds[i].puissance_KW;
+
+                // Enregistrement de l'evenement retablissement
+                strcpy(events[*nb_events].type, "RETABLISSEMENT");
+                strcpy(events[*nb_events].noeud_id, noeuds[i].id);
+                strcpy(events[*nb_events].message, "Retablissement automatique");
+                events[*nb_events].valeur = noeuds[i].puissance_KW;
+
+                (*nb_events)++;
+
+
+            }
+        }
+    }
+    // Rétablissement des noeuds de priorité 3
+    for(i=0; i<n; i++){
+        if (noeuds[i].priorite == 3 && noeuds[i].etat == 0){
+            if (marge_KW >= noeuds[i].puissance_KW){
+                noeuds[i].etat = 1;
+
+                marge_KW -= noeuds[i].puissance_KW;
+
+                // Enregistrment de l'événement retablissement
+                 strcpy(events[*nb_events].type, "RETABLISSEMENT");
+                strcpy(events[*nb_events].noeud_id, noeuds[i].id);
+                strcpy(events[*nb_events].message, "Retablissement automatique");
+                events[*nb_events].valeur = noeuds[i].puissance_KW;
+
+                (*nb_events)++;
+            }
+        }
+    }
+}
 
 /*Cette fonction retourne le taux de charge en %. p_charge est la puissance consommér par les noeuds actifs  
 p_dispo est la production disponible ( solaire + reseau)

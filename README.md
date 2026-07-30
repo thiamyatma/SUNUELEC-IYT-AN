@@ -125,6 +125,13 @@ Ici , chaque coupure est enregistré dans le tableau eventd[] avec
 le type d'evenemnt, l'id du noeud, un message, la puissance coupés.  
 [voir-resultat_test](Tests/resultat_events_delestage.png)
 
+# Retablissement Progressif
+Ici , les charges délestés sont restaurés selon l'ordre des priorités  
+priorité 2 en premier , puis priorité 3  
+Le retablissement est effectué uniquement si la marge disponible  
+est suffisante . Et Chaque retablissement est enregistré dans le tableau des événements.
+
+[voir-resultat-test](Tests/resultat_retablissement.png)
 
 
 
