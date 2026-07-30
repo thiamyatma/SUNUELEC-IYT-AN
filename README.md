@@ -113,6 +113,26 @@ Pour l'instant , on a pas encore implémenter l'interpolation linéaire dans le 
  
  [voir le resultat du test](Tests/resultat_production_dispo_12heure.png)
 
+ # Yatma:  Début de l'implémentation de l'algorithme de délestage automatique.
+ L'algorithme coupe les charges en cas de surcharge du reseau selon l'ordre de priorité.  
+ d'abord l'algorithme deleste les neouds de priorit3.  
+ ensuite si le déficit est toujours la , les noeuds de priorite 2 sont coupés.  
+ Par contre , les neouds de priorité 1 sont jamais coupés . [voir-resultat-priorite2](Tests/Resultat_delestage_priorite2.png) et [voir-resutat-priorite 3](Tests/resultat_delestage_priorite3.png)
+
+# Ajout de l'enregistrement des événements de delestage.
+
+Ici , chaque coupure est enregistré dans le tableau eventd[] avec   
+le type d'evenemnt, l'id du noeud, un message, la puissance coupés.  
+[voir-resultat_test](Tests/resultat_events_delestage.png)
+
+# Retablissement Progressif
+Ici , les charges délestés sont restaurés selon l'ordre des priorités  
+priorité 2 en premier , puis priorité 3  
+Le retablissement est effectué uniquement si la marge disponible  
+est suffisante . Et Chaque retablissement est enregistré dans le tableau des événements.
+
+[voir-resultat-test](Tests/resultat_retablissement.png)
+
 
 
 

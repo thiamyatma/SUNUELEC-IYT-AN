@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "Headers/structures.h" 
 #include "Headers/supervision.h"
 // #include "Headers/fichier.h"
@@ -13,24 +14,36 @@ int main(){
     Noeud noeuds[NB_NOEUDS];
     initialiser_noeuds(noeuds);
     int i;
+    Evenement events[MAX_EVENTS];
+    int nb_events = 0;
+    int nb_coupes;
 
-    PointCourbe courbe[NB_POINTS_COURBE] ={
-        /* Quelques données de la production solaire 
-        pour le test */
+    nb_coupes = delestage_automatique(noeuds,NB_NOEUDS,40.0,events,&nb_events);
+    printf("Nombre de noeuds coupes: %d\n", nb_coupes);
+    printf("\n==========EVENEMENTS=======\n");
+    for(i=0; i<nb_events; i++){
+        printf("Type : %s\n", events[i].type);
+        printf("Noeuds: %s\n", events[i].noeud_id);
+        printf("Message: %s\n", events[i].message);
+        printf("Puissance coupee: %.2f KW\n", events[i].valeur);
+        printf("---------------------------\n");
+    }
 
-        {0, 0.0, 15.0},
-        {1, 0.0, 14.8},
-        {2, 0.0, 14.5},
-        {12, 14.8, 2.0},
-        {18, 2.1, 14.0}          
-    };
+    for(i =0; i< NB_NOEUDS; i++){
+        printf("%s - %s - Etat : %d\n",
+            noeuds[i].id,
+            noeuds[i].nom,
+            noeuds[i].etat);
+    }
 
-    float production;
-    production = calcul_production_disponible(courbe, 5,12); /*On appele la fonction avec 3 parametres: courbe ,
-     le tableau des données de production, 5, le nombre d'element dans le tableau, 
-     12, l'heure recherché */
+    printf("\n======RETABLISSEMENT=======\n");
+    retablissement_progressif(noeuds, NB_NOEUDS, 15.0, events, &nb_events);
 
-    printf("Production disponibl a 12h: %.2f KW\n", production);
+    for (i=0; i< NB_NOEUDS; i++){
+        printf("%s - Etat : %d\n", noeuds[i].id, noeuds[i].etat);
+    }
+
+   
 
     
     return 0;

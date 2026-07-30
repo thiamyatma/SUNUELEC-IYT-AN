@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "../Headers/structures.h"
 #include "../Headers/supervision.h" //Je remonte d'un dossier vers Headers
 #include <math.h>
@@ -24,13 +25,87 @@ float calcul_puissance_totale(Noeud noeuds[], int n){
 (priorité 3 d'abord, puis 2) jusqu'a réabsorber le déficit
 Elle retourne le nombre de noeuds coupés.
 Chaque coupure est enregistrée dans le tableau d'évenement avec horodotage et raison*/
-int delestage_automatique(Noeud noeuds[], int n, float deficit_KW, Evenement events[], int *nb_events);
+int delestage_automatique(Noeud noeuds[], int n, float deficit_KW, Evenement events[], int *nb_events){
+    int i;
+    int nb_coupes = 0;
+
+    for (i=0; i<n; i++){
+        if (noeuds[i].priorite== 3 && noeuds[i].etat ==1){
+            noeuds[i].etat = 0;
+            deficit_KW -= noeuds[i].puissance_KW;
+            nb_coupes++;
+
+            strcpy(events[*nb_events].type, "DELESTAGE");
+            strcpy(events[*nb_events].noeud_id, noeuds[i].id);
+            strcpy(events[*nb_events].message, "Coupure Automatique");
+            events[*nb_events].valeur = noeuds[i].puissance_KW;
+            (*nb_events)++ ;
+            
+            if (deficit_KW <=0){
+                return nb_coupes;
+            }
+        }
+    }
+    // si deficit exite encore : delestage priorite 2
+    for(i=0; i<n; i++){
+        if (noeuds[i].priorite ==2 && noeuds[i].etat ==1){
+            noeuds[i].etat = 0;
+            deficit_KW -= noeuds[i].puissance_KW;
+            nb_coupes++;
+
+            if (deficit_KW <= 0){
+                return nb_coupes;
+            }
+        }
+    }
+    return nb_coupes;
+}
+
 
 /*Cette procedure permet de rétablir progressivement les noeuds délestés
 dans l'ordre inverse (priorité d'abord) dès que la marge le permet.
 Elle enregistre chaque rétablissement.
 */
-void retablissement_progressif(Noeud noeuds[], int n, float marge_KW, Evenement events[], int *nb_events);
+// Retablissement des noeuds de priorité 2
+int i;
+void retablissement_progressif(Noeud noeuds[], int n, float marge_KW, Evenement events[], int *nb_events){
+    for (i=0; i<n; i++){
+        if(noeuds[i].priorite == 2 && noeuds[i].etat ==0){
+            if(marge_KW >= noeuds[i].puissance_KW){
+                noeuds[i].etat = 1;
+                marge_KW -= noeuds[i].puissance_KW;
+
+                // Enregistrement de l'evenement retablissement
+                strcpy(events[*nb_events].type, "RETABLISSEMENT");
+                strcpy(events[*nb_events].noeud_id, noeuds[i].id);
+                strcpy(events[*nb_events].message, "Retablissement automatique");
+                events[*nb_events].valeur = noeuds[i].puissance_KW;
+
+                (*nb_events)++;
+
+
+            }
+        }
+    }
+    // Rétablissement des noeuds de priorité 3
+    for(i=0; i<n; i++){
+        if (noeuds[i].priorite == 3 && noeuds[i].etat == 0){
+            if (marge_KW >= noeuds[i].puissance_KW){
+                noeuds[i].etat = 1;
+
+                marge_KW -= noeuds[i].puissance_KW;
+
+                // Enregistrment de l'événement retablissement
+                 strcpy(events[*nb_events].type, "RETABLISSEMENT");
+                strcpy(events[*nb_events].noeud_id, noeuds[i].id);
+                strcpy(events[*nb_events].message, "Retablissement automatique");
+                events[*nb_events].valeur = noeuds[i].puissance_KW;
+
+                (*nb_events)++;
+            }
+        }
+    }
+}
 
 /*Cette fonction retourne le taux de charge en %. p_charge est la puissance consommér par les noeuds actifs  
 p_dispo est la production disponible ( solaire + reseau)
