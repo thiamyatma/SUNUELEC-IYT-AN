@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "../Headers/structures.h"
 #include "../Headers/supervision.h" //Je remonte d'un dossier vers Headers
 #include <math.h>
@@ -33,6 +34,13 @@ int delestage_automatique(Noeud noeuds[], int n, float deficit_KW, Evenement eve
             noeuds[i].etat = 0;
             deficit_KW -= noeuds[i].puissance_KW;
             nb_coupes++;
+
+            strcpy(events[*nb_events].type, "DELESTAGE");
+            strcpy(events[*nb_events].noeud_id, noeuds[i].id);
+            strcpy(events[*nb_events].message, "Coupure Automatique");
+            events[*nb_events].valeur = noeuds[i].puissance_KW;
+            (*nb_events)++ ;
+            
             if (deficit_KW <=0){
                 return nb_coupes;
             }
