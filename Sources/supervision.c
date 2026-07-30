@@ -24,7 +24,23 @@ float calcul_puissance_totale(Noeud noeuds[], int n){
 (priorité 3 d'abord, puis 2) jusqu'a réabsorber le déficit
 Elle retourne le nombre de noeuds coupés.
 Chaque coupure est enregistrée dans le tableau d'évenement avec horodotage et raison*/
-int delestage_automatique(Noeud noeuds[], int n, float deficit_KW, Evenement events[], int *nb_events);
+int delestage_automatique(Noeud noeuds[], int n, float deficit_KW, Evenement events[], int *nb_events){
+    int i;
+    int nb_coupes = 0;
+
+    for (i=0; i<n; i++){
+        if (noeuds[i].priorite== 3 && noeuds[i].etat ==1){
+            noeuds[i].etat = 0;
+            deficit_KW -= noeuds[i].puissance_KW;
+            nb_coupes++;
+            if (deficit_KW <=0){
+                return nb_coupes;
+            }
+        }
+    }
+    return nb_coupes;
+}
+
 
 /*Cette procedure permet de rétablir progressivement les noeuds délestés
 dans l'ordre inverse (priorité d'abord) dès que la marge le permet.

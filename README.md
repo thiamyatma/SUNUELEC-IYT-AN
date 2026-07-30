@@ -112,6 +112,8 @@ Pour l'instant , on a pas encore implémenter l'interpolation linéaire dans le 
  [Voir le code pour le test_Suite](Tests/code_test_production_dispo1_heure.png)
  [voir le resultat du test](Tests/resultat_production_dispo_12heure.png)
 
+ #  Début de l'implémentation de l'algorithme de délestage automatique.
+
 
 
 
