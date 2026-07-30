@@ -3,6 +3,7 @@
 #include <string.h>
 #include "Headers/structures.h" 
 #include "Headers/supervision.h"
+#include "Headers/energie.h"
 // #include "Headers/fichier.h"
 // #include "Headers/menu.h"
 
@@ -43,6 +44,17 @@ int main(){
         printf("%s - Etat : %d\n", noeuds[i].id, noeuds[i].etat);
     }
 
+
+    float energie;
+
+    PointCourbe courbe[24];
+
+    for(i =0; i<24; i++){
+        courbe[i].heure = i;
+    }
+
+    energie = calcul_energie_noeud(&noeuds[0], courbe, 24);
+    printf("Energie consommee par %s: %.2f KHh\n", noeuds[0].nom, energie);
    
 
     
