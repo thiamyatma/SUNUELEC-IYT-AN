@@ -156,7 +156,20 @@ Test réalisé sur les 12 noeuds :
 - ...
 - N12 Divers : 41.40 kWh
 
-[voir le reste des resultats](Tests/resultat-energie-tous-noeuds.png)
+[voir le reste des resultats](Tests/resultat-energie-tous-noeuds.png)  
+
+## Recherche d'un noeud par ID
+
+Ajout de la fonction recherche_noeud_par_id().
+
+Cette fonction réalise une recherche séquentielle dans le tableau
+des noeuds et retourne un pointeur vers la structure trouvée.
+
+Test réalisé :
+Recherche : N05 [capture ici](Tests/resultat_rechercher_noeud_id.png)
+
+Résultat :
+N05 - Résid. A trouvé
 
 
 

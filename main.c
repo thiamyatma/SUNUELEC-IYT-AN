@@ -6,6 +6,7 @@
 #include "Headers/energie.h"
 // #include "Headers/fichier.h"
 // #include "Headers/menu.h"
+#include "Headers/recherche.h"
 
 #include "Headers/initialisation.h"
 
@@ -18,16 +19,15 @@ int main(){
 
     PointCourbe courbe[24];
 
-    for(i = 0; i < 24; i++){
-        courbe[i].heure = i;
-
+    Noeud *resultat;
+    resultat = recherche_noeud_par_id(noeuds, NB_NOEUDS, "N05");
+    if(resultat != NULL){
+        printf("Noeud trouve: %s - %s\n" , resultat->id, resultat->nom);
+    }
+    else{
+        printf("Noeud Introuvable\n");
     }
 
-    calculer_energie_tous_noeuds(noeuds, NB_NOEUDS, courbe, 24);
-    for(i=0; i< NB_NOEUDS; i++){
-        printf("%s - %s: %.2f KWh\n", noeuds[i].id, noeuds[i].nom, noeuds[i].energie_KWh);
-    }
-    
     return 0;
 
         
