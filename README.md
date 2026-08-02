@@ -188,7 +188,22 @@ Résultat du test :
 
 [voir la capture](Tests/resultat_tri_noeud_consommation.png)
 
+# Bilan énergétique journalier
 
+## Fonctionnalité ajoutée
+
+Ajout de la fonction :
+
+```c
+void bilan_journalier(
+    Noeud noeuds[],
+    int n_noeud,
+    PointCourbe courbe[],
+    int n_courbe,
+    Evenement events[],
+    int n_events
+);
+ 
 
 
 
