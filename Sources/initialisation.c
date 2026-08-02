@@ -99,10 +99,46 @@ void initialiser_noeuds(Noeud noeuds[]){
     noeuds[11].etat=1;
     noeuds[11].energie_KWh=0;
     noeuds[11].cos_phi=0.86;
+}
+
+void initialiser_courbe(PointCourbe courbe[])
+{
+    float solaire[24] = {
+        0.0,0.0,0.0,0.0,
+        0.0,0.0,
+        0.8,2.5,4.5,7.8,
+        11.2,13.5,14.8,
+        14.5,13.5,12.0,
+        9.0,5.5,2.1,
+        0.5,0.0,0.0,
+        0.0,0.0
+    };
 
 
+    float reseau[24] = {
+        15.0,14.8,14.5,14.2,
+        13.8,13.5,
+        14.2,12.5,12.0,10.0,
+        6.0,3.5,2.0,
+        2.5,3.5,5.0,
+        8.0,10.5,14.0,
+        14.5,15.0,14.8,
+        14.5,14.2
+    };
 
-   
 
+    int i;
 
+    for(i=0;i<24;i++)
+    {
+        courbe[i].heure = i;
+
+        courbe[i].p_solaire_KW = solaire[i];
+
+        courbe[i].p_reseau_KW = reseau[i];
+
+        courbe[i].p_charge_KW = 0;
+
+        courbe[i].taux_charge = 0;
+    }
 }

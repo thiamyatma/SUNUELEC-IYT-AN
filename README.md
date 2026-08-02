@@ -203,7 +203,38 @@ void bilan_journalier(
     Evenement events[],
     int n_events
 );
- 
+
+### Modules ajoutés et validés
+
+- Implémentation du **bilan énergétique journalier** (`bilan.c`)
+  - Calcul de la consommation totale.
+  - Calcul de la production solaire et réseau.
+  - Calcul du taux de couverture PV.
+  - Recherche du plus gros et plus faible consommateur.
+  - Comptage des délestages et rétablissements.
+  - Affichage de lhistorique des événements.  
+  Résultat du test :
+
+  Consommation totale: 1219.00 KWh
+Production solaire totale: 112.20 KWh
+Production reseau totale : 262.50 KWh
+Taux couverture PV : 9.20 %
+
+Plus gros consommateur : N01 - Hopital : 195.50 KWh
+Plus faible consommateur : N12 - Divers : 41.40 KWh  
+
+## Correction du calcul énergétique
+
+- Ajout de l''appel à `calculer_energie_tous_noeuds()`.
+- Les consommations journalières des 12 nœuds sont maintenant calculées correctement.
+
+### Initialisation de la courbe de production
+
+- Intégration des 24 points horaires fournis dans le cahier des charges :
+  - Production solaire variable.
+  - Production réseau national disponible.
+
+
 
 
 

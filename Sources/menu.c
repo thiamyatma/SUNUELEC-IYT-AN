@@ -1,18 +1,25 @@
 #include <stdio.h>
 #include "../Headers/menu.h"
+#include "../Headers/affichage.h"
+#include "../Headers/bilan.h"
  void afficher_menu(){
      printf("===SUPERVISION RESEAU ELECTRIQUE===\n");
      printf("1. Charger configuration reseau\n");
      printf("2. Afficher etat actuel des noeuds\n");
      printf("3. Simuler une heure\n");
      printf("4. Declencher delestage manuel\n");
-     printf("5. Afficher bilan jornalier\n");
+    
      printf("5. Afficher bilan journalier\n");
      printf("6. Exporter rapport journalier\n");
      printf("7. Quitter\n");
      printf("Faite un choix :\n");
  }
- void gestion_choix(){
+ void gestion_choix(
+    Noeud noeuds[],
+    PointCourbe courbe[],
+    Evenement events[],
+    int *nb_events
+    ){
      int choix = 0;
      do {
         afficher_menu();
@@ -26,6 +33,7 @@
             break;
         case 2:
             printf("Affichage etat actuel des noeuds\n");
+            afficherListeNoeuds(noeuds, NB_NOEUDS);
             break;
         case 3:
             printf("Simulation d'une heure\n");
@@ -35,6 +43,7 @@
             break;
         case 5:
             printf("Affichage bilan journalier\n");
+            bilan_journalier(noeuds, NB_NOEUDS, courbe, NB_POINTS_COURBE, events, *nb_events);
             break;
         case 6:
             printf("Exportation rapport journalier\n");

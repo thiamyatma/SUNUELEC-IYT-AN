@@ -13,7 +13,7 @@ typedef struct {
 int sauvegarder_noeuds(const char *nom_fichier, Noeud *tableau, int n_noeud );
 int charger_noeuds(const char *nom_fichier, Noeud *tableau, int n_noeud);
 
-int enregistrer_courbe_charge(const char *nom_fichier, CourbeCharge donnees);
+int enregistrer_courbe_charge(const char *nom_fichier, PointCourbe donnees);
 
 int ajouter_evenement(const char *nom_fichier, const char *evenement);
 

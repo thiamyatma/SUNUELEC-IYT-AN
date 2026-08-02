@@ -6,5 +6,6 @@
 
 
 void initialiser_noeuds(Noeud noeuds[]);
+void initialiser_courbe(PointCourbe courbe[]);
 
 #endif // INITIALISATION_H

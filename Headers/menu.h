@@ -1,6 +1,8 @@
 #ifndef MENU_H
 #define MENU_H
 
+#include "structures.h"
+
 
 void afficher_menu();
 void gestion_choix(
