@@ -171,6 +171,23 @@ Recherche : N05 [capture ici](Tests/resultat_rechercher_noeud_id.png)
 Résultat :
 N05 - Résid. A trouvé
 
+## Tri des noeuds par consommation
+
+Ajout de la fonction trier_noeuds_par_consommation().
+
+Cette fonction utilise un tri par sélection afin de classer les noeuds
+selon leur énergie consommée (energie_KWh) dans un ordre décroissant.
+
+Résultat du test :
+
+1. N01 Hôpital : 195.50 kWh
+2. N05 Résid. A : 140.30 kWh
+3. N04 Marché : 133.40 kWh
+...
+12. N12 Divers : 41.40 kWh
+
+[voir la capture](Tests/resultat_tri_noeud_consommation.png)
+
 
 
 

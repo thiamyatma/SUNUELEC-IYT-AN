@@ -7,6 +7,7 @@
 // #include "Headers/fichier.h"
 // #include "Headers/menu.h"
 #include "Headers/recherche.h"
+#include "Headers/tri.h"
 
 #include "Headers/initialisation.h"
 
@@ -18,15 +19,22 @@ int main(){
     initialiser_noeuds(noeuds);
 
     PointCourbe courbe[24];
+    for (i=0; i<24; i++){
+        courbe[i].heure = i;
+    }
 
-    Noeud *resultat;
-    resultat = recherche_noeud_par_id(noeuds, NB_NOEUDS, "N05");
-    if(resultat != NULL){
-        printf("Noeud trouve: %s - %s\n" , resultat->id, resultat->nom);
+    calculer_energie_tous_noeuds(noeuds, NB_NOEUDS, courbe, 24);
+
+    trier_noeuds_par_consommation(noeuds, NB_NOEUDS);
+    printf("\n=======CLASSEMENT CONSOMMATION======\n");
+
+
+    for(i=0; i< NB_NOEUDS; i++){
+        printf("%d. %s - %s : %.2f KWh\n", i+1, noeuds[i].id, noeuds[i].nom, noeuds[i].energie_KWh);
+
     }
-    else{
-        printf("Noeud Introuvable\n");
-    }
+
+
 
     return 0;
 
