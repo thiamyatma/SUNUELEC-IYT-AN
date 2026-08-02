@@ -7,5 +7,4 @@
 float calcul_energie_noeud(Noeud *noeud, PointCourbe courbe[], int n);
 void calculer_energie_tous_noeuds(Noeud noeuds[], int n_noeud, PointCourbe courbe[], int n_courbe);
 
-
 #endif // ENERGIE_H

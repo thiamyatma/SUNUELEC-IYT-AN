@@ -1,34 +1,35 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include "Headers/structures.h" 
-#include "Headers/supervision.h"
-#include "Headers/energie.h"
-// #include "Headers/fichier.h"
-// #include "Headers/menu.h"
 
+#include "Headers/structures.h"
+#include "Headers/menu.h"
 #include "Headers/initialisation.h"
+#include "Headers/energie.h"
 
-
-
-int main(){
-    int i;
+int main()
+{
     Noeud noeuds[NB_NOEUDS];
+    PointCourbe courbe[NB_POINTS_COURBE];
+    Evenement events[MAX_EVENTS];
+
+    int nb_events = 0;
+
+
+    // Initialisation des noeuds
     initialiser_noeuds(noeuds);
+    initialiser_courbe(courbe);
+    calculer_energie_tous_noeuds(noeuds, NB_NOEUDS, courbe, NB_POINTS_COURBE);
 
-    PointCourbe courbe[24];
 
-    for(i = 0; i < 24; i++){
-        courbe[i].heure = i;
 
-    }
+    // Lancement du menu
+    gestion_choix(
+        noeuds,
+        courbe,
+        events,
+        &nb_events
+    );
 
-    calculer_energie_tous_noeuds(noeuds, NB_NOEUDS, courbe, 24);
-    for(i=0; i< NB_NOEUDS; i++){
-        printf("%s - %s: %.2f KWh\n", noeuds[i].id, noeuds[i].nom, noeuds[i].energie_KWh);
-    }
-    
+
     return 0;
-
-        
 }

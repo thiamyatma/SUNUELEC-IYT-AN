@@ -156,7 +156,83 @@ Test réalisé sur les 12 noeuds :
 - ...
 - N12 Divers : 41.40 kWh
 
-[voir le reste des resultats](Tests/resultat-energie-tous-noeuds.png)
+[voir le reste des resultats](Tests/resultat-energie-tous-noeuds.png)  
+
+## Recherche d'un noeud par ID
+
+Ajout de la fonction recherche_noeud_par_id().
+
+Cette fonction réalise une recherche séquentielle dans le tableau
+des noeuds et retourne un pointeur vers la structure trouvée.
+
+Test réalisé :
+Recherche : N05 [capture ici](Tests/resultat_rechercher_noeud_id.png)
+
+Résultat :
+N05 - Résid. A trouvé
+
+## Tri des noeuds par consommation
+
+Ajout de la fonction trier_noeuds_par_consommation().
+
+Cette fonction utilise un tri par sélection afin de classer les noeuds
+selon leur énergie consommée (energie_KWh) dans un ordre décroissant.
+
+Résultat du test :
+
+1. N01 Hôpital : 195.50 kWh
+2. N05 Résid. A : 140.30 kWh
+3. N04 Marché : 133.40 kWh
+...
+12. N12 Divers : 41.40 kWh
+
+[voir la capture](Tests/resultat_tri_noeud_consommation.png)
+
+# Bilan énergétique journalier
+
+## Fonctionnalité ajoutée
+
+Ajout de la fonction :
+
+```c
+void bilan_journalier(
+    Noeud noeuds[],
+    int n_noeud,
+    PointCourbe courbe[],
+    int n_courbe,
+    Evenement events[],
+    int n_events
+);
+
+### Modules ajoutés et validés
+
+- Implémentation du **bilan énergétique journalier** (`bilan.c`)
+  - Calcul de la consommation totale.
+  - Calcul de la production solaire et réseau.
+  - Calcul du taux de couverture PV.
+  - Recherche du plus gros et plus faible consommateur.
+  - Comptage des délestages et rétablissements.
+  - Affichage de lhistorique des événements.  
+  Résultat du test :
+
+  Consommation totale: 1219.00 KWh
+Production solaire totale: 112.20 KWh
+Production reseau totale : 262.50 KWh
+Taux couverture PV : 9.20 %
+
+Plus gros consommateur : N01 - Hopital : 195.50 KWh
+Plus faible consommateur : N12 - Divers : 41.40 KWh  
+
+## Correction du calcul énergétique
+
+- Ajout de l''appel à `calculer_energie_tous_noeuds()`.
+- Les consommations journalières des 12 nœuds sont maintenant calculées correctement.
+
+### Initialisation de la courbe de production
+
+- Intégration des 24 points horaires fournis dans le cahier des charges :
+  - Production solaire variable.
+  - Production réseau national disponible.
 
 
 

@@ -55,6 +55,14 @@ int delestage_automatique(Noeud noeuds[], int n, float deficit_KW, Evenement eve
 
             if (deficit_KW <= 0){
                 return nb_coupes;
+
+                // Enregistrement de l'événement
+                strcpy(events[*nb_events].type, "DELESTAGE");
+                strcpy(events[*nb_events].noeud_id, noeuds[i].id);
+                strcpy(events[*nb_events].message, "Coupure automatique");
+                events[*nb_events].valeur = noeuds[i].puissance_KW;
+
+                (*nb_events)++;
             }
         }
     }
@@ -67,8 +75,9 @@ dans l'ordre inverse (priorité d'abord) dès que la marge le permet.
 Elle enregistre chaque rétablissement.
 */
 // Retablissement des noeuds de priorité 2
-int i;
+
 void retablissement_progressif(Noeud noeuds[], int n, float marge_KW, Evenement events[], int *nb_events){
+    int i;
     for (i=0; i<n; i++){
         if(noeuds[i].priorite == 2 && noeuds[i].etat ==0){
             if(marge_KW >= noeuds[i].puissance_KW){
