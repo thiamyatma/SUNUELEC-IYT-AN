@@ -1,0 +1,11 @@
+# Binaires et objets
+*.exe
+*.o
+supervision.exe
+SUNUELEC.exe
+
+# Fichiers produits par le programme
+# (courbe.csv est une donnee d'entree, elle reste versionnee)
+donnees/noeuds.dat
+donnees/evenements.log
+donnees/bilan_journalier.txt

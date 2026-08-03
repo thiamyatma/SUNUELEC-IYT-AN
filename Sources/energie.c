@@ -1,38 +1,125 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include "../Headers/structures.h" //je remonte d'un dossier
 
-/*Cette fonction intergre la consommation d'un noeuds sur 24h ( Methode des trapèze)
-Elle retourne L'énergie en KiloWatt Heure (KWH).*/
-float calcul_energie_noeud(Noeud *noeud, PointCourbe courbe[], int n){
-    float energie = 0;
-    int i;
+#include "../Headers/structures.h"
+#include "../Headers/energie.h"
 
-    for(i=0; i< n-1; i++){
-        float puissance1 = 0;
-        float puissance2 = 0;
 
-        // le noeud consomme uiniquement s'il est à ON
-        if(noeud->etat == 1){
-            puissance1 = noeud->puissance_KW;
-            puissance2 = noeud->puissance_KW;
 
-            // Methode des trapèze
-            energie += ((puissance1 + puissance2)/2)*(courbe[i+1].heure - courbe[i].heure);
+/*
+    Enregistrement de la consommation reelle d'une heure.
 
-        }
-        
+    C'est ici que la simulation laisse une trace :
+    un noeud coupe consomme 0 pendant cette heure,
+    mais garde l'energie deja consommee les heures
+    precedentes.
+*/
+void enregistrer_consommation_horaire(
+    Noeud noeuds[],
+    int n_noeud,
+    int heure
+)
+{
+
+    if(heure < 0 || heure >= NB_POINTS_COURBE)
+    {
+        return;
     }
+
+
+    for(int i = 0; i < n_noeud; i++)
+    {
+
+        if(noeuds[i].etat == 1)
+        {
+            noeuds[i].consommation_horaire[heure] =
+                noeuds[i].puissance_kw;
+        }
+        else
+        {
+            noeuds[i].consommation_horaire[heure] = 0.0f;
+        }
+
+    }
+
+}
+
+
+
+
+/*
+    Calcul de l'energie consommee par un noeud.
+
+    Energie = somme ( P(h) * 1 heure )
+
+    La puissance est constante pendant l'heure simulee,
+    l'integration se fait donc heure par heure sur le
+    profil enregistre par la simulation.
+*/
+float calcul_energie_noeud(
+    Noeud *noeud,
+    int n_heures
+)
+{
+    float energie = 0.0f;
+
+
+    if(noeud == NULL || n_heures <= 0)
+    {
+        return 0.0f;
+    }
+
+
+    if(n_heures > NB_POINTS_COURBE)
+    {
+        n_heures = NB_POINTS_COURBE;
+    }
+
+
+    for(int h = 0; h < n_heures; h++)
+    {
+
+        /*
+            Duree entre deux mesures : 1 heure.
+            kw * h = kwh
+        */
+        float duree = 1.0f;
+
+
+        energie +=
+            noeud->consommation_horaire[h] * duree;
+
+    }
+
+
     return energie;
 }
 
-/*Cette procedure Met à jour le champ energie_KWh de chaque noeud*/
-void calculer_energie_tous_noeuds(Noeud noeuds[], int n_noeud, PointCourbe courbe[], int n_courbe){
-    int i;
 
-    for(i=0; i<n_noeud; i++){
-        noeuds[i].energie_KWh = calcul_energie_noeud(&noeuds[i], courbe, n_courbe);
+
+
+/*
+    Calcul energie de tous les noeuds.
+
+    Fonction de calcul : aucun affichage ici,
+    l'affichage est du ressort de affichage.c
+    et de bilan.c
+*/
+void calculer_energie_tous_noeuds(
+    Noeud noeuds[],
+    int n_noeud,
+    int n_heures
+)
+{
+
+    for(int i = 0; i < n_noeud; i++)
+    {
+
+        noeuds[i].energie_kwh =
+            calcul_energie_noeud(
+                &noeuds[i],
+                n_heures
+            );
+
     }
 
 }
-
