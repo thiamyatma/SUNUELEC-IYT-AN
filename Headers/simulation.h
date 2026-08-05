@@ -4,7 +4,6 @@
 #include "structures.h"
 #include "energie.h"
 
-
 /*
  * Simule le fonctionnement du reseau pendant une heure.
  *
@@ -38,24 +37,5 @@ void simuler_heure(
     Evenement events[],
     int *nb_events
 );
-
-
-
-/*
- * Lance une simulation complete de 24 heures.
- *
- * Utilisee pour tester :
- *  - les delestages.
- *  - les retablissements.
- *  - le bilan journalier.
- */
-void simuler_journee(
-    Noeud noeuds[],
-    int n_noeud,
-    PointCourbe courbe[],
-    Evenement events[],
-    int *nb_events
-);
-
 
 #endif

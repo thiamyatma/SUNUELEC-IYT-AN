@@ -3,8 +3,6 @@
 #include "../Headers/structures.h"
 #include "../Headers/energie.h"
 
-
-
 /*
     Enregistrement de la consommation reelle d'une heure.
 
@@ -19,31 +17,24 @@ void enregistrer_consommation_horaire(
     int heure
 )
 {
-
     if(heure < 0 || heure >= NB_POINTS_COURBE)
     {
         return;
     }
 
-
     for(int i = 0; i < n_noeud; i++)
     {
-
         if(noeuds[i].etat == 1)
         {
             noeuds[i].consommation_horaire[heure] =
-                noeuds[i].puissance_kw;
+                noeuds[i].puissance_kW;
         }
         else
         {
             noeuds[i].consommation_horaire[heure] = 0.0f;
         }
-
     }
-
 }
-
-
 
 
 /*
@@ -62,47 +53,37 @@ float calcul_energie_noeud(
 {
     float energie = 0.0f;
 
-
     if(noeud == NULL || n_heures <= 0)
     {
         return 0.0f;
     }
-
 
     if(n_heures > NB_POINTS_COURBE)
     {
         n_heures = NB_POINTS_COURBE;
     }
 
-
     for(int h = 0; h < n_heures; h++)
     {
-
         /*
             Duree entre deux mesures : 1 heure.
             kw * h = kwh
         */
         float duree = 1.0f;
 
-
         energie +=
             noeud->consommation_horaire[h] * duree;
-
     }
-
 
     return energie;
 }
 
 
-
-
 /*
     Calcul energie de tous les noeuds.
 
-    Fonction de calcul : aucun affichage ici,
-    l'affichage est du ressort de affichage.c
-    et de bilan.c
+    On ne fait qu'un calcul ici, rien n'est affiche :
+    l'affichage se fait dans affichage.c et bilan.c
 */
 void calculer_energie_tous_noeuds(
     Noeud noeuds[],
@@ -110,16 +91,12 @@ void calculer_energie_tous_noeuds(
     int n_heures
 )
 {
-
     for(int i = 0; i < n_noeud; i++)
     {
-
-        noeuds[i].energie_kwh =
+        noeuds[i].energie_kWh =
             calcul_energie_noeud(
                 &noeuds[i],
                 n_heures
             );
-
     }
-
 }

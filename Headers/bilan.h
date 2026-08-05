@@ -3,11 +3,10 @@
 
 #include "structures.h"
 
-
 /*
  * Calcule la consommation totale journaliere.
  *
- * Additionne energie_kwh de tous les noeuds.
+ * Additionne energie_kWh de tous les noeuds.
  *
  * Entrees :
  *      noeuds[] : tableau des charges
@@ -20,7 +19,6 @@ float calcul_consommation_totale(
     Noeud noeuds[],
     int n_noeud
 );
-
 
 
 /*
@@ -42,7 +40,6 @@ float calcul_production_totale(
 );
 
 
-
 /*
  * Calcule le taux de couverture solaire.
  *
@@ -55,7 +52,6 @@ float calcul_taux_couverture_pv(
     PointCourbe courbe[],
     int n_courbe
 );
-
 
 
 /*
@@ -71,7 +67,6 @@ int compter_evenements(
 );
 
 
-
 /*
  * Recherche le noeud ayant la plus grande consommation.
  */
@@ -81,7 +76,6 @@ Noeud* noeud_plus_consommateur(
 );
 
 
-
 /*
  * Recherche le noeud ayant la plus faible consommation.
  */
@@ -89,7 +83,6 @@ Noeud* noeud_moins_consommateur(
     Noeud noeuds[],
     int n_noeud
 );
-
 
 
 /*
@@ -113,7 +106,5 @@ void bilan_journalier(
     Evenement events[],
     int n_events
 );
-
-
 
 #endif

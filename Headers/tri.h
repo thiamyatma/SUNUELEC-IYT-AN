@@ -3,7 +3,6 @@
 
 #include "structures.h"
 
-
 /*
  * Trie les noeuds par energie consommee decroissante.
  *
@@ -26,6 +25,5 @@ void trier_noeuds_par_consommation(
     Noeud noeuds[],
     int n
 );
-
 
 #endif

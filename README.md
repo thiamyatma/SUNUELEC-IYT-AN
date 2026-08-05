@@ -139,10 +139,8 @@ est suffisante . Et Chaque retablissement est enregistré dans le tableau des é
 Cette fonction calcule l'énergie consommée par un nœud sur la journée
 en intégrant son historique de consommation heure par heure.
 
-> **Note :** les chiffres de cette section datent de la première version,
-> qui intégrait un profil constant sur 24 h au lieu de l'historique réel.
-> Les valeurs corrigées sont dans la section « Correction du calcul
-> d'énergie » en bas de ce fichier.
+Attention : les chiffres ci-dessous sont ceux de la première version, avant
+qu'on corrige le calcul. Les bons résultats sont plus bas.
 
  Test réalisé :
 - Nœud testé : N01 Hôpital
@@ -211,123 +209,61 @@ void bilan_journalier(
 );
 ```
 
-### Modules ajoutés et validés
-
-- Implémentation du **bilan énergétique journalier** (`bilan.c`)
-  - Calcul de la consommation totale.
-  - Calcul de la production solaire et réseau.
-  - Calcul du taux de couverture PV.
-  - Recherche du plus gros et plus faible consommateur.
-  - Comptage des délestages et rétablissements.
-  - Affichage de l'historique des événements.
-
-J'avais oublié de fermer le bloc de code juste au-dessus, du coup tout le
-bas du README s'affichait comme du code sur GitHub. C'est réparé.
-
-### Initialisation de la courbe de production
-
-- Intégration des 24 points horaires fournis dans le cahier des charges :
-  - Production solaire variable.
-  - Production réseau national disponible.
-
-Les mêmes 24 points sont aussi disponibles dans [donnees/courbe.csv](donnees/courbe.csv),
-chargeable depuis le menu (choix 12).
+Le module sort la consommation totale, les productions solaire et réseau, le
+taux de couverture PV, les deux extrêmes de consommation, et compte les
+délestages et rétablissements.
 
 # Module simulation
 
 Ajout de [simulation.c](Sources/simulation.c) et [simulation.h](Headers/simulation.h).
 
-`simuler_heure()` enchaîne : production disponible → consommation totale →
-taux de charge → délestage si surcharge → rétablissement si marge →
-enregistrement de la consommation de l'heure → mise à jour de l'énergie.
+`simuler_heure()` enchaîne : production disponible, consommation totale, taux de
+charge, délestage si surcharge, rétablissement si la marge le permet,
+enregistrement de la consommation de l'heure, mise à jour de l'énergie.
 
-`simuler_journee()` répète l'opération sur les 24 heures.
+# Corrections apportées
 
-# Correction du calcul d'énergie
+## Calcul de l'énergie
 
-C'est le gros bug de cette version. `consommation_horaire[24]` était rempli
-une fois pour toutes à l'initialisation avec la puissance nominale du nœud,
-et la simulation ne le mettait jamais à jour. Résultat :
+Le calcul de l'énergie a été corrigé. La consommation est maintenant enregistrée à chaque heure de la simulation, ce qui permet d'obtenir un bilan énergétique cohérent à la fin de la journée.
 
-- l'énergie affichée était la même après 1 heure ou après 10 heures de simulation ;
-- dès qu'un nœud était délesté, `if(etat == 0)` remettait **toute** sa journée
-  à zéro, alors qu'il avait bien consommé avant d'être coupé.
+Exemple après 24 heures :
 
-Ce qui a changé :
-
-- `consommation_horaire[]` est maintenant un **historique**, initialisé à 0 et
-  rempli heure par heure par `enregistrer_consommation_horaire()`, appelée
-  après le délestage et le rétablissement.
-- `calcul_energie_noeud()` intègre cet historique (`E = Σ P(h) × 1 h`).
-  La puissance étant constante pendant l'heure simulée, le trapèze se réduit
-  à un rectangle par heure.
-
-Les valeurs plus haut dans ce README viennent de l'ancien calcul et ne sont
-plus valables. Résultats actuels après une journée complète (choix 11 puis 10) :
-
-```
-========== BILAN JOURNALIER ==========
-
-Consommation totale : 376.80 kwh
-Production solaire : 112.20 kwh
-Production reseau : 262.50 kwh
-Production totale disponible : 374.70 kwh
-Part du solaire dans la production : 29.94 %
-Couverture PV de la consommation : 29.78 %
-
-Plus gros consommateur : N01 - Hopital : 204.00 kwh
-Plus faible consommateur : N04 - Marche : 0.00 kwh
+```text
+Consommation totale : 376.80 kWh
+Production totale disponible : 374.70 kWh
+Plus gros consommateur : N01 - Hopital : 204.00 kWh
 ```
 
-204.00 = 8.5 kw × 24 h pour l'Hôpital, ce qui est cohérent. Les 9 nœuds à 0.00
-sont ceux qui ont été délestés à l'heure 0 et jamais rétablis (voir la remarque
-sur les données, plus bas).
+---
 
-# Autres corrections
+## Améliorations
 
-- `ajouter_evenement()` : `strncpy` ne terminait pas les chaînes quand la source
-  remplissait exactement le tampon (cas de `noeud_id[4]` avec "N01"). Le `\0`
-  est maintenant forcé.
-- Le rétablissement écrivait ses événements à la main avec `strcpy` au lieu
-  d'appeler `ajouter_evenement()`, donc l'horodatage n'était jamais rempli.
-- Délestage : quand aucun nœud ne couvre à lui seul le déficit, on prend
-  maintenant le plus gros disponible et non le plus petit, ce qui limite le
-  nombre de coupures.
-- Le rétablissement vise 90 % de la production et non 100 %, sinon le réseau
-  repassait en surcharge à l'heure suivante (oscillation ON/OFF).
-- `evenements.log` : le menu réécrivait tout l'historique à chaque simulation,
-  le fichier se remplissait de doublons. Seuls les nouveaux événements sont
-  désormais écrits.
-- Les 8 fonctions déclarées dans les `.h` sans définition sont implémentées
-  (`bilan.h` en avait 6, plus `simuler_journee` et `verifier_facteur_puissance`).
-- `MAX_EVENTS` passé de 200 à 500, sinon une journée complète sature le tableau.
-- `charger_noeuds()` valide le contenu relu : une vieille sauvegarde
-  incohérente est refusée et le réseau est réinitialisé proprement.
+Les principales améliorations réalisées sont :
 
-# Menu
+- correction du calcul de l'énergie ;
+- amélioration du délestage et du rétablissement des nœuds ;
+- ajout de l'horodatage dans les événements ;
+- correction de l'enregistrement des événements dans le fichier de log ;
+- vérification des sauvegardes lors du chargement ;
+- implémentation des fonctions manquantes.
 
-Trois options ajoutées :
+---
 
-- **10** : simulation d'une journée complète (24 h)
-- **11** : réinitialisation du réseau (12 nœuds ON, énergie à 0)
-- **12** : chargement de la courbe de production depuis le CSV
+## Remarque
 
-# Remarque sur les données
+Dans les données utilisées, la consommation totale est supérieure à la production disponible. Le délestage automatique est donc normal et permet de maintenir l'alimentation des charges prioritaires (Hôpital, École et Pompe à eau).
 
-La charge nominale totale des 12 nœuds est de **53.0 kw**, alors que la
-production disponible varie entre **13.8 et 17.8 kw** sur la journée. Le réseau
-est donc structurellement déficitaire : les priorités 2 et 3 sont coupées dès
-l'heure 0 et la marge ne suffit jamais à les rétablir.
+---
 
-Le délestage fonctionne comme prévu (les priorités 1 ne sont jamais coupées),
-mais le bilan reste peu parlant tant que les données du cahier des charges ne
-sont pas rééquilibrées.
-
-# Compilation
+## Compilation
 
 ```powershell
 gcc -Wall -Wextra -std=c11 main.c (Get-ChildItem Sources\*.c) -I Headers -o supervision.exe
 ```
 
-Compile sans aucun warning. Exécution : `.\supervision.exe`
+Exécution :
 
+```powershell
+.\supervision.exe
+```

@@ -3,21 +3,17 @@
 
 #include "../Headers/initialisation.h"
 
-
-
 /*
     Initialise les 12 noeuds du réseau.
 */
 void initialiser_noeuds(Noeud noeuds[])
 {
-
     char ids[NB_NOEUDS][4] =
     {
         "N01","N02","N03","N04",
         "N05","N06","N07","N08",
         "N09","N10","N11","N12"
     };
-
 
     char noms[NB_NOEUDS][30] =
     {
@@ -35,7 +31,6 @@ void initialiser_noeuds(Noeud noeuds[])
         "Divers"
     };
 
-
     float puissances[NB_NOEUDS] =
     {
         8.5,
@@ -52,7 +47,6 @@ void initialiser_noeuds(Noeud noeuds[])
         1.8
     };
 
-
     int priorites[NB_NOEUDS] =
     {
         1,1,1,
@@ -62,33 +56,23 @@ void initialiser_noeuds(Noeud noeuds[])
         3
     };
 
-
-
     for(int i = 0; i < NB_NOEUDS; i++)
     {
-
         strcpy(noeuds[i].id, ids[i]);
 
         strcpy(noeuds[i].nom, noms[i]);
 
-
-        noeuds[i].puissance_kw =
+        noeuds[i].puissance_kW =
             puissances[i];
-
 
         noeuds[i].priorite =
             priorites[i];
 
-
         noeuds[i].etat = 1;
 
-
-        noeuds[i].energie_kwh = 0;
-
+        noeuds[i].energie_kWh = 0;
 
         noeuds[i].cos_phi = 0.86;
-
-
 
         /*
             Profil horaire initial vide.
@@ -106,13 +90,8 @@ void initialiser_noeuds(Noeud noeuds[])
         {
             noeuds[i].consommation_horaire[h] = 0.0f;
         }
-
     }
-
 }
-
-
-
 
 
 /*
@@ -121,7 +100,6 @@ void initialiser_noeuds(Noeud noeuds[])
 
 void initialiser_courbe(PointCourbe courbe[])
 {
-
     float solaire[24] =
     {
         0.0,0.0,0.0,0.0,
@@ -133,7 +111,6 @@ void initialiser_courbe(PointCourbe courbe[])
         0.5,0.0,0.0,
         0.0,0.0
     };
-
 
     float reseau[24] =
     {
@@ -147,27 +124,18 @@ void initialiser_courbe(PointCourbe courbe[])
         14.5,14.2
     };
 
-
-
     for(int i = 0; i < NB_POINTS_COURBE; i++)
     {
-
         courbe[i].heure = i;
 
-
-        courbe[i].p_solaire_kw =
+        courbe[i].p_solaire_kW =
             solaire[i];
 
-
-        courbe[i].p_reseau_kw =
+        courbe[i].p_reseau_kW =
             reseau[i];
 
-
-        courbe[i].p_charge_kw = 0;
-
+        courbe[i].p_charge_kW = 0;
 
         courbe[i].taux_charge = 0;
-
     }
-
 }

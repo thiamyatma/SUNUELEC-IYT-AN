@@ -2,7 +2,6 @@
 
 #include "../Headers/tri.h"
 
-
 /*
     Trie les noeuds par énergie consommée décroissante.
 
@@ -18,16 +17,12 @@ void trier_noeuds_par_consommation(
     int n
 )
 {
-
     if(n <= 1)
         return;
 
-
     for(int i = 0; i < n - 1; i++)
     {
-
         int max = i;
-
 
         /*
             Recherche du noeud
@@ -37,16 +32,12 @@ void trier_noeuds_par_consommation(
 
         for(int j = i + 1; j < n; j++)
         {
-
-            if(noeuds[j].energie_kwh >
-               noeuds[max].energie_kwh)
+            if(noeuds[j].energie_kWh >
+               noeuds[max].energie_kWh)
             {
                 max = j;
             }
-
         }
-
-
 
         /*
             Échange des structures
@@ -54,18 +45,13 @@ void trier_noeuds_par_consommation(
 
         if(max != i)
         {
-
             Noeud temporaire;
-
 
             temporaire = noeuds[i];
 
             noeuds[i] = noeuds[max];
 
             noeuds[max] = temporaire;
-
         }
-
     }
-
 }

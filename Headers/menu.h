@@ -8,6 +8,7 @@
    Sortie  : les 12 options ecrites a l'ecran. */
 void afficher_menu(void);
 
+
 /* Boucle principale du programme : affiche le menu, lit le choix de
    l'utilisateur et declenche l'action correspondante jusqu'au choix 9.
    Une saisie non numerique est rejetee sans bloquer la boucle.

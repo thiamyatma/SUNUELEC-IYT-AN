@@ -5,7 +5,7 @@
 
 #include "../Headers/structures.h"
 #include "../Headers/supervision.h"
-
+#include "../Headers/recherche.h"
 
 /* Création d'un horodatage dynamique */
 void obtenir_horodatage(char date[])
@@ -14,6 +14,16 @@ void obtenir_horodatage(char date[])
     struct tm *tm_info = localtime(&t);
 
     strftime(date, 20, "%d/%m/%Y %H:%M", tm_info);
+}
+
+
+/* Date seule au format JJ-MM-AAAA, pour nommer le rapport */
+void obtenir_date_fichier(char date[])
+{
+    time_t t = time(NULL);
+    struct tm *tm_info = localtime(&t);
+
+    strftime(date, 11, "%d-%m-%Y", tm_info);
 }
 
 
@@ -61,8 +71,9 @@ void ajouter_evenement(
     Calcule la puissance totale active
     uniquement des noeuds ON
 
-    Fonction de calcul pur : les alertes cos_phi
-    sont traitées par verifier_facteur_puissance().
+    On ne fait que la somme ici. Les alertes cos_phi
+    sont dans verifier_facteur_puissance(), sinon elles
+    s'affichaient plusieurs fois par heure simulee.
 */
 float calcul_puissance_totale(Noeud noeuds[], int n)
 {
@@ -72,7 +83,7 @@ float calcul_puissance_totale(Noeud noeuds[], int n)
     {
         if(noeuds[i].etat == 1)
         {
-            somme += noeuds[i].puissance_kw;
+            somme += noeuds[i].puissance_kW;
         }
     }
 
@@ -121,11 +132,11 @@ void verifier_facteur_puissance(
 /*
     Recherche du noeud à couper dans une priorité donnée.
 
-    Stratégie :
-    1) le plus petit noeud qui couvre à lui seul le déficit
-       (évite de couper plus que nécessaire) ;
-    2) sinon le plus gros noeud disponible, pour réduire le
-       déficit au plus vite et limiter le nombre de coupures.
+    On cherche d'abord le plus petit noeud qui suffit à lui
+    seul à combler le déficit, comme ça on ne coupe pas plus
+    que nécessaire. Si aucun ne suffit, on prend le plus gros
+    pour faire baisser le déficit vite et éviter d'enchaîner
+    les coupures.
 
     Retour : index du noeud, -1 si aucun candidat.
 */
@@ -139,29 +150,26 @@ int trouver_noeud_a_couper(
     int index = -1;
     float puissance_min = 0;
 
-
     /* 1) plus petit noeud couvrant le déficit */
     for(int i = 0; i < n; i++)
     {
         if(noeuds[i].priorite == priorite &&
            noeuds[i].etat == 1 &&
-           noeuds[i].puissance_kw >= deficit)
+           noeuds[i].puissance_kW >= deficit)
         {
             if(index == -1 ||
-               noeuds[i].puissance_kw < puissance_min)
+               noeuds[i].puissance_kW < puissance_min)
             {
-                puissance_min = noeuds[i].puissance_kw;
+                puissance_min = noeuds[i].puissance_kW;
                 index = i;
             }
         }
     }
 
-
     if(index != -1)
     {
         return index;
     }
-
 
     /* 2) sinon, le plus gros noeud disponible */
     float puissance_max = 0;
@@ -172,9 +180,9 @@ int trouver_noeud_a_couper(
            noeuds[i].etat == 1)
         {
             if(index == -1 ||
-               noeuds[i].puissance_kw > puissance_max)
+               noeuds[i].puissance_kW > puissance_max)
             {
-                puissance_max = noeuds[i].puissance_kw;
+                puissance_max = noeuds[i].puissance_kW;
                 index = i;
             }
         }
@@ -182,7 +190,6 @@ int trouver_noeud_a_couper(
 
     return index;
 }
-
 
 
 /*
@@ -197,24 +204,22 @@ int trouver_noeud_a_couper(
 int delestage_automatique(
     Noeud noeuds[],
     int n,
-    float deficit_kw,
+    float deficit_kW,
     Evenement events[],
     int *nb_events
 )
 {
     int compteur = 0;
 
-
     /* marge de 0.001 kW : évite une boucle sur un résidu flottant */
-    while(deficit_kw > 0.001f)
+    while(deficit_kW > 0.001f)
     {
         int index = trouver_noeud_a_couper(
             noeuds,
             n,
             3,
-            deficit_kw
+            deficit_kW
         );
-
 
         if(index == -1)
         {
@@ -222,10 +227,9 @@ int delestage_automatique(
                 noeuds,
                 n,
                 2,
-                deficit_kw
+                deficit_kW
             );
         }
-
 
         /*
             Plus aucune charge délestable :
@@ -236,34 +240,31 @@ int delestage_automatique(
             printf(
                 "Surcharge persistante : %.2f kW non couverts "
                 "(charges critiques conservees).\n",
-                deficit_kw
+                deficit_kW
             );
 
             ajouter_evenement(
                 events,
                 nb_events,
                 "SURCHARGE",
-                "---",
+                "SYS",
                 "Deficit residuel apres delestage",
-                deficit_kw
+                deficit_kW
             );
 
             break;
         }
 
-
         noeuds[index].etat = 0;
 
-        deficit_kw -= noeuds[index].puissance_kw;
-
+        deficit_kW -= noeuds[index].puissance_kW;
 
         printf(
             "DELESTAGE : %s - %s (%.2f kW)\n",
             noeuds[index].id,
             noeuds[index].nom,
-            noeuds[index].puissance_kw
+            noeuds[index].puissance_kW
         );
-
 
         ajouter_evenement(
             events,
@@ -271,13 +272,11 @@ int delestage_automatique(
             "DELESTAGE",
             noeuds[index].id,
             "Coupure automatique",
-            noeuds[index].puissance_kw
+            noeuds[index].puissance_kW
         );
-
 
         compteur++;
     }
-
 
     return compteur;
 }
@@ -296,21 +295,17 @@ int delestage_automatique(
 void retablissement_progressif(
     Noeud noeuds[],
     int n_noeud,
-    float marge_kw,
+    float marge_kW,
     Evenement events[],
     int *nb_events
 )
 {
     int retablis = 0;
 
-
     for(int priorite = 1; priorite <= 3; priorite++)
     {
-
         for(int i = 0; i < n_noeud; i++)
         {
-
-
             /*
                 On cherche uniquement
                 les noeuds coupés
@@ -319,15 +314,12 @@ void retablissement_progressif(
             if(noeuds[i].etat == 0 &&
                noeuds[i].priorite == priorite)
             {
-
-
                 /*
                     Vérification de la marge disponible
                 */
 
-                if(marge_kw >= noeuds[i].puissance_kw)
+                if(marge_kW >= noeuds[i].puissance_kW)
                 {
-
                     if(retablis == 0)
                     {
                         printf(
@@ -335,25 +327,18 @@ void retablissement_progressif(
                         );
                     }
 
-
                     noeuds[i].etat = 1;
 
-
-                    marge_kw -= noeuds[i].puissance_kw;
-
+                    marge_kW -= noeuds[i].puissance_kW;
 
                     retablis++;
-
-
 
                     printf(
                     "RETABLISSEMENT : %s - %s (%.2f kW)\n",
                     noeuds[i].id,
                     noeuds[i].nom,
-                    noeuds[i].puissance_kw
+                    noeuds[i].puissance_kW
                     );
-
-
 
                     /*
                         Enregistrement événement
@@ -369,17 +354,12 @@ void retablissement_progressif(
                         "RETABLISSEMENT",
                         noeuds[i].id,
                         "Retablissement automatique",
-                        noeuds[i].puissance_kw
+                        noeuds[i].puissance_kW
                     );
-
                 }
-
             }
-
         }
-
     }
-
 }
 
 
@@ -402,13 +382,10 @@ float calcul_taux_charge_pct(
         return 0;
     }
 
-
     float taux = (p_charge / p_dispo) * 100;
-
 
     return taux;
 }
-
 
 
 /*
@@ -432,11 +409,10 @@ float calcul_production_disponible(
     {
         if(courbe[i].heure == heure)
         {
-            return courbe[i].p_solaire_kw +
-                   courbe[i].p_reseau_kw;
+            return courbe[i].p_solaire_kW +
+                   courbe[i].p_reseau_kW;
         }
     }
-
 
     /* Interpolation */
     for(int i = 0; i < n - 1; i++)
@@ -444,20 +420,16 @@ float calcul_production_disponible(
         if(heure > courbe[i].heure &&
            heure < courbe[i+1].heure)
         {
-
             float p1 =
-                courbe[i].p_solaire_kw +
-                courbe[i].p_reseau_kw;
-
+                courbe[i].p_solaire_kW +
+                courbe[i].p_reseau_kW;
 
             float p2 =
-                courbe[i+1].p_solaire_kw +
-                courbe[i+1].p_reseau_kw;
-
+                courbe[i+1].p_solaire_kW +
+                courbe[i+1].p_reseau_kW;
 
             float h1 = courbe[i].heure;
             float h2 = courbe[i+1].heure;
-
 
             return p1 +
             ((p2 - p1) / (h2 - h1))
@@ -465,10 +437,8 @@ float calcul_production_disponible(
         }
     }
 
-
     return 0;
 }
-
 
 
 /*
@@ -485,10 +455,8 @@ void delestage_manuel(
 {
     char id[4];
 
-
     printf("\n===== DELESTAGE MANUEL =====\n");
     printf("Entrer l'identifiant du noeud (ex N05) : ");
-
 
     /*
        Protection contre dépassement mémoire
@@ -499,44 +467,37 @@ void delestage_manuel(
         return;
     }
 
+    /*
+       La recherche est deleguee au module recherche,
+       pour ne pas dupliquer le parcours du tableau.
+    */
+    Noeud *noeud = recherche_noeud_par_id(noeuds, n, id);
 
-
-    for(int i = 0; i < n; i++)
+    if(noeud == NULL)
     {
-
-        if(strcmp(noeuds[i].id, id) == 0)
-        {
-
-            if(noeuds[i].etat == 0)
-            {
-                printf("Noeud deja coupe.\n");
-                return;
-            }
-
-
-            noeuds[i].etat = 0;
-
-
-            ajouter_evenement(
-                events,
-                nb_events,
-                "DELESTAGE",
-                noeuds[i].id,
-                "Coupure manuelle",
-                noeuds[i].puissance_kw
-            );
-
-
-            printf(
-                "Noeud %s coupe manuellement avec succes.\n",
-                noeuds[i].id
-            );
-
-
-            return;
-        }
+        printf("Noeud introuvable.\n");
+        return;
     }
 
+    if(noeud->etat == 0)
+    {
+        printf("Noeud deja coupe.\n");
+        return;
+    }
 
-    printf("Noeud introuvable.\n");
+    noeud->etat = 0;
+
+    ajouter_evenement(
+        events,
+        nb_events,
+        "DELESTAGE",
+        noeud->id,
+        "Coupure manuelle",
+        noeud->puissance_kW
+    );
+
+    printf(
+        "Noeud %s coupe manuellement avec succes.\n",
+        noeud->id
+    );
 }

@@ -3,12 +3,10 @@
 
 #include "../Headers/bilan.h"
 
-
-
 /*
     Consommation totale journalière.
 
-    On utilise energie_kwh, déjà calculée par la
+    On utilise energie_kWh, déjà calculée par la
     simulation à partir de l'historique horaire.
 
     On ne regarde PAS l'état actuel : un noeud coupé
@@ -21,16 +19,13 @@ float calcul_consommation_totale(
 {
     float total = 0;
 
-
     for(int i = 0; i < n_noeud; i++)
     {
-        total += noeuds[i].energie_kwh;
+        total += noeuds[i].energie_kWh;
     }
-
 
     return total;
 }
-
 
 
 /*
@@ -46,17 +41,14 @@ float calcul_production_totale(
 {
     float total = 0;
 
-
     for(int i = 0; i < n_courbe; i++)
     {
-        total += courbe[i].p_solaire_kw +
-                 courbe[i].p_reseau_kw;
+        total += courbe[i].p_solaire_kW +
+                 courbe[i].p_reseau_kW;
     }
-
 
     return total;
 }
-
 
 
 /*
@@ -72,25 +64,21 @@ float calcul_taux_couverture_pv(
     float solaire = 0;
     float totale  = 0;
 
-
     for(int i = 0; i < n_courbe; i++)
     {
-        solaire += courbe[i].p_solaire_kw;
+        solaire += courbe[i].p_solaire_kW;
 
-        totale  += courbe[i].p_solaire_kw +
-                   courbe[i].p_reseau_kw;
+        totale  += courbe[i].p_solaire_kW +
+                   courbe[i].p_reseau_kW;
     }
-
 
     if(totale <= 0)
     {
         return 0;
     }
 
-
     return (solaire / totale) * 100.0f;
 }
-
 
 
 /*
@@ -104,7 +92,6 @@ int compter_evenements(
 {
     int compteur = 0;
 
-
     for(int i = 0; i < n_events; i++)
     {
         if(strcmp(events[i].type, type) == 0)
@@ -113,10 +100,8 @@ int compter_evenements(
         }
     }
 
-
     return compteur;
 }
-
 
 
 /*
@@ -134,23 +119,19 @@ Noeud* noeud_plus_consommateur(
         return NULL;
     }
 
-
     int max = 0;
-
 
     for(int i = 1; i < n_noeud; i++)
     {
-        if(noeuds[i].energie_kwh >
-           noeuds[max].energie_kwh)
+        if(noeuds[i].energie_kWh >
+           noeuds[max].energie_kWh)
         {
             max = i;
         }
     }
 
-
     return &noeuds[max];
 }
-
 
 
 /*
@@ -168,23 +149,19 @@ Noeud* noeud_moins_consommateur(
         return NULL;
     }
 
-
     int min = 0;
-
 
     for(int i = 1; i < n_noeud; i++)
     {
-        if(noeuds[i].energie_kwh <
-           noeuds[min].energie_kwh)
+        if(noeuds[i].energie_kWh <
+           noeuds[min].energie_kWh)
         {
             min = i;
         }
     }
 
-
     return &noeuds[min];
 }
-
 
 
 void bilan_journalier(
@@ -196,35 +173,26 @@ void bilan_journalier(
     int n_events
 )
 {
-
     int i;
-
 
     float consommation_totale =
         calcul_consommation_totale(noeuds, n_noeud);
 
-
     float production_totale =
         calcul_production_totale(courbe, n_courbe);
-
 
     float part_solaire_production =
         calcul_taux_couverture_pv(courbe, n_courbe);
 
-
-
     float production_solaire = 0;
     float production_reseau  = 0;
 
-
     for(i = 0; i < n_courbe; i++)
     {
-        production_solaire += courbe[i].p_solaire_kw;
+        production_solaire += courbe[i].p_solaire_kW;
 
-        production_reseau  += courbe[i].p_reseau_kw;
+        production_reseau  += courbe[i].p_reseau_kW;
     }
-
-
 
     /*
         Part de la consommation réelle couverte
@@ -233,7 +201,6 @@ void bilan_journalier(
 
     float couverture_conso_pv = 0;
 
-
     if(consommation_totale > 0)
     {
         couverture_conso_pv =
@@ -241,50 +208,37 @@ void bilan_journalier(
             * 100.0f;
     }
 
-
-
-
     printf("\n========== BILAN JOURNALIER ==========\n\n");
-
-
 
     printf(
         "Consommation totale : %.2f kwh\n",
         consommation_totale
     );
 
-
     printf(
         "Production solaire : %.2f kwh\n",
         production_solaire
     );
-
 
     printf(
         "Production reseau : %.2f kwh\n",
         production_reseau
     );
 
-
     printf(
         "Production totale disponible : %.2f kwh\n",
         production_totale
     );
-
 
     printf(
         "Part du solaire dans la production : %.2f %%\n",
         part_solaire_production
     );
 
-
     printf(
         "Couverture PV de la consommation : %.2f %%\n",
         couverture_conso_pv
     );
-
-
-
 
     /*
         Détail par noeud
@@ -294,20 +248,16 @@ void bilan_journalier(
         "\n====== CONSOMMATION PAR NOEUD ======\n"
     );
 
-
     for(i = 0; i < n_noeud; i++)
     {
         printf(
             "%s - %-12s : %8.2f kwh  [%s]\n",
             noeuds[i].id,
             noeuds[i].nom,
-            noeuds[i].energie_kwh,
+            noeuds[i].energie_kWh,
             noeuds[i].etat == 1 ? "ON " : "OFF"
         );
     }
-
-
-
 
     /*
         Extrêmes de consommation
@@ -316,11 +266,8 @@ void bilan_journalier(
     Noeud *plus_gros =
         noeud_plus_consommateur(noeuds, n_noeud);
 
-
     Noeud *plus_faible =
         noeud_moins_consommateur(noeuds, n_noeud);
-
-
 
     if(plus_gros != NULL)
     {
@@ -328,10 +275,9 @@ void bilan_journalier(
             "\nPlus gros consommateur : %s - %s : %.2f kwh\n",
             plus_gros->id,
             plus_gros->nom,
-            plus_gros->energie_kwh
+            plus_gros->energie_kWh
         );
     }
-
 
     if(plus_faible != NULL)
     {
@@ -339,12 +285,9 @@ void bilan_journalier(
             "Plus faible consommateur : %s - %s : %.2f kwh\n",
             plus_faible->id,
             plus_faible->nom,
-            plus_faible->energie_kwh
+            plus_faible->energie_kWh
         );
     }
-
-
-
 
     /*
         Comptage événements
@@ -353,25 +296,18 @@ void bilan_journalier(
     int nb_delestages =
         compter_evenements(events, n_events, "DELESTAGE");
 
-
     int nb_retablissements =
         compter_evenements(events, n_events, "RETABLISSEMENT");
-
-
 
     printf(
         "\nNombre de delestages : %d\n",
         nb_delestages
     );
 
-
     printf(
         "Nombre de retablissements : %d\n",
         nb_retablissements
     );
-
-
-
 
     /*
         Historique événements
@@ -381,16 +317,13 @@ void bilan_journalier(
         "\n========== HISTORIQUE EVENEMENTS ==========\n"
     );
 
-
     if(n_events == 0)
     {
         printf("\nAucun evenement enregistre.\n");
     }
 
-
     for(i = 0; i < n_events; i++)
     {
-
         printf(
             "\n[%s] %s - %s\n",
             events[i].horodatage,
@@ -398,13 +331,10 @@ void bilan_journalier(
             events[i].noeud_id
         );
 
-
         printf(
             "%s : %.2f kw\n",
             events[i].message,
             events[i].valeur
         );
-
     }
-
 }

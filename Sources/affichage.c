@@ -2,8 +2,6 @@
 
 #include "../Headers/affichage.h"
 
-
-
 /*
     Affiche un titre de section
 */
@@ -16,10 +14,6 @@ void afficherEnteteEcran(
 }
 
 
-
-
-
-
 /*
     Affiche un noeud individuel
 */
@@ -28,7 +22,6 @@ void afficherUnNoeudEcran(
     float puissance_inst
 )
 {
-
     printf(
         "%s - %-12s | %5.2f kw | Priorite %d | ",
         noeud->id,
@@ -36,7 +29,6 @@ void afficherUnNoeudEcran(
         puissance_inst,
         noeud->priorite
     );
-
 
     if(noeud->etat == 1)
     {
@@ -47,19 +39,11 @@ void afficherUnNoeudEcran(
         printf("OFF");
     }
 
-
-
     printf(
         " | Energie : %8.2f kwh\n",
-        noeud->energie_kwh
+        noeud->energie_kWh
     );
-
 }
-
-
-
-
-
 
 
 /*
@@ -74,19 +58,13 @@ void afficherListeNoeuds(
     int n
 )
 {
-
     afficherEnteteEcran("ETAT DES NOEUDS");
-
-
 
     for(int i = 0; i < n; i++)
     {
-
         afficherUnNoeudEcran(
             &noeuds[i],
-            noeuds[i].puissance_kw
+            noeuds[i].puissance_kW
         );
-
     }
-
 }

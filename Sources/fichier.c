@@ -4,8 +4,6 @@
 
 #include "../Headers/fichier.h"
 
-
-
 /*
     Chargement d'une courbe depuis un fichier CSV
 
@@ -24,30 +22,22 @@ int charger_courbe_csv(
     int n_courbe
 )
 {
-
     FILE *fichier;
 
     fichier = fopen(nom_fichier, "r");
-
 
     if(fichier == NULL)
     {
         return 0;
     }
 
-
-
     int compteur = 0;
-
-
 
     while(compteur < n_courbe)
     {
-
         int heure;
         float solaire;
         float reseau;
-
 
         if(fscanf(
                 fichier,
@@ -60,38 +50,23 @@ int charger_courbe_csv(
             break;
         }
 
-
-
         courbe[compteur].heure = heure;
 
-        courbe[compteur].p_solaire_kw = solaire;
+        courbe[compteur].p_solaire_kW = solaire;
 
-        courbe[compteur].p_reseau_kw = reseau;
+        courbe[compteur].p_reseau_kW = reseau;
 
-        courbe[compteur].p_charge_kw = 0;
+        courbe[compteur].p_charge_kW = 0;
 
         courbe[compteur].taux_charge = 0;
 
-
-
         compteur++;
-
     }
-
-
 
     fclose(fichier);
 
-
-
     return compteur;
-
 }
-
-
-
-
-
 
 
 /*
@@ -104,22 +79,17 @@ int sauvegarder_noeuds(
     int n_noeud
 )
 {
-
     FILE *fichier;
-
 
     fichier = fopen(
         nom_fichier,
         "wb"
     );
 
-
     if(fichier == NULL)
     {
         return 0;
     }
-
-
 
     size_t ecrits =
         fwrite(
@@ -129,26 +99,15 @@ int sauvegarder_noeuds(
             fichier
         );
 
-
-
     fclose(fichier);
-
-
 
     if(ecrits == (size_t)n_noeud)
     {
         return 1;
     }
 
-
     return 0;
-
 }
-
-
-
-
-
 
 
 /*
@@ -161,22 +120,17 @@ int charger_noeuds(
     int n_noeud
 )
 {
-
     FILE *fichier;
-
 
     fichier = fopen(
         nom_fichier,
         "rb"
     );
 
-
     if(fichier == NULL)
     {
         return 0;
     }
-
-
 
     size_t lus =
         fread(
@@ -186,57 +140,39 @@ int charger_noeuds(
             fichier
         );
 
-
-
     fclose(fichier);
-
-
 
     if(lus != (size_t)n_noeud)
     {
         return 0;
     }
 
-
-
     /*
-        Validation du contenu.
+        On verifie ce qu'on relit.
 
-        Un fichier ecrit par une version anterieure du
-        programme (structure Noeud differente) peut avoir
-        la bonne taille mais un contenu incoherent.
-        On refuse alors le chargement pour que l'appelant
-        reinitialise proprement le reseau.
+        Un vieux fichier .dat ecrit avant qu'on modifie la
+        structure Noeud peut avoir la bonne taille mais
+        contenir n'importe quoi. Dans ce cas on refuse le
+        chargement et l'appelant repart d'un reseau neuf.
     */
 
     for(int i = 0; i < n_noeud; i++)
     {
-
         tableau[i].id[sizeof(tableau[i].id) - 1]   = '\0';
         tableau[i].nom[sizeof(tableau[i].nom) - 1] = '\0';
 
-
         if(tableau[i].id[0] != 'N' ||
-           tableau[i].puissance_kw <= 0.0f ||
+           tableau[i].puissance_kW <= 0.0f ||
            tableau[i].priorite < 1 ||
            tableau[i].priorite > 3 ||
            (tableau[i].etat != 0 && tableau[i].etat != 1))
         {
             return 0;
         }
-
     }
 
-
     return 1;
-
 }
-
-
-
-
-
-
 
 
 /*
@@ -248,22 +184,17 @@ int ajouter_evenement_log(
     Evenement event
 )
 {
-
     FILE *fichier;
-
 
     fichier = fopen(
         nom_fichier,
         "a"
     );
 
-
     if(fichier == NULL)
     {
         return 0;
     }
-
-
 
     fprintf(
         fichier,
@@ -275,21 +206,10 @@ int ajouter_evenement_log(
         event.valeur
     );
 
-
-
     fclose(fichier);
 
-
-
     return 1;
-
 }
-
-
-
-
-
-
 
 
 /*
@@ -304,124 +224,118 @@ int generer_bilan_journalier(
     DonneesBilan bilan
 )
 {
-
     FILE *fichier;
-
 
     fichier = fopen(
         nom_fichier,
         "w"
     );
 
-
     if(fichier == NULL)
     {
         return 0;
     }
 
-
-
+    /*
+        Mise en page reprise du modele du sujet.
+    */
 
     fprintf(
         fichier,
-        "========== RAPPORT JOURNALIER ==========\n"
+        "========================================\n"
     );
 
-
     fprintf(
         fichier,
-        "Date : %s\n\n",
+        "BILAN ENERGETIQUE - %s\n",
         date
     );
 
-
+    fprintf(
+        fichier,
+        "========================================\n\n"
+    );
 
     fprintf(
         fichier,
-        "Production solaire : %.2f kwh\n",
+        "CONSOMMATION PAR NOEUD (kWh)\n"
+    );
+
+    for(int i = 0; i < n_noeud; i++)
+    {
+        fprintf(
+            fichier,
+            "%s %s : %.1f kWh\n",
+            noeuds[i].id,
+            noeuds[i].nom,
+            noeuds[i].energie_kWh
+        );
+    }
+
+    fprintf(
+        fichier,
+        "\nPRODUCTION TOTALE\n"
+    );
+
+    fprintf(
+        fichier,
+        "Solaire : %.1f kWh\n",
         bilan.prod_solaire
     );
 
-
     fprintf(
         fichier,
-        "Production reseau : %.2f kwh\n",
+        "Reseau national : %.1f kWh\n",
         bilan.prod_reseau
     );
 
-
     fprintf(
         fichier,
-        "Production totale : %.2f kwh\n",
+        "Total disponible : %.1f kWh\n",
         bilan.prod_solaire +
         bilan.prod_reseau
     );
 
+    fprintf(
+        fichier,
+        "\nSTATISTIQUES\n"
+    );
 
     fprintf(
         fichier,
-        "Consommation totale : %.2f kwh\n",
+        "Consommation totale: %.1f kWh\n",
         bilan.consommation_totale
     );
 
-
     fprintf(
         fichier,
-        "Part du solaire dans la production : %.2f %%\n\n",
+        "Taux couverture PV : %.1f %%\n",
         bilan.taux_couverture_pv
     );
 
-
-
-
     fprintf(
         fichier,
-        "====== CONSOMMATION DES NOEUDS ======\n"
-    );
-
-
-
-    for(int i = 0; i < n_noeud; i++)
-    {
-
-        fprintf(
-            fichier,
-            "%s - %s : %.2f kwh\n",
-            noeuds[i].id,
-            noeuds[i].nom,
-            noeuds[i].energie_kwh
-        );
-
-    }
-
-
-
-
-    fprintf(
-        fichier,
-        "\n====== STATISTIQUES ======\n"
-    );
-
-
-    fprintf(
-        fichier,
-        "Nombre delestages : %d\n",
+        "Nb delestages : %d\n",
         bilan.nb_delestages
     );
 
-
     fprintf(
         fichier,
-        "Nombre retablissements : %d\n",
+        "Nb retablissements : %d\n",
         bilan.nb_retablissements
     );
 
+    fprintf(
+        fichier,
+        "Sauvegarder bilan : OK\n"
+    );
 
+    fprintf(
+        fichier,
+        "========================================\n"
+    );
 
     fclose(fichier);
 
-
-
     return 1;
-
 }
