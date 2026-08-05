@@ -1,0 +1,53 @@
+
+====================================
+  SYSTEME DE SUPERVISION RESEAU
+  ELECTRIQUE SUNUELEC IYT_AN
+====================================
+
+===== SUPERVISION RESEAU ELECTRIQUE =====
+1. Charger configuration reseau
+2. Afficher etat actuel des noeuds
+3. Simuler une heure (avancer de 1h dans la courbe)
+4. Declencher delestage manuel (choix du noeud)
+5. Afficher bilan journalier
+6. Exporter rapport journalier
+7. Quitter
+Choix : 
+===== DELESTAGE MANUEL =====
+Entrer l'identifiant du noeud (ex N05) : Noeud N01 coupe manuellement avec succes.
+
+===== SUPERVISION RESEAU ELECTRIQUE =====
+1. Charger configuration reseau
+2. Afficher etat actuel des noeuds
+3. Simuler une heure (avancer de 1h dans la courbe)
+4. Declencher delestage manuel (choix du noeud)
+5. Afficher bilan journalier
+6. Exporter rapport journalier
+7. Quitter
+Choix : 
+===== DELESTAGE MANUEL =====
+Entrer l'identifiant du noeud (ex N05) : Noeud deja coupe.
+
+===== SUPERVISION RESEAU ELECTRIQUE =====
+1. Charger configuration reseau
+2. Afficher etat actuel des noeuds
+3. Simuler une heure (avancer de 1h dans la courbe)
+4. Declencher delestage manuel (choix du noeud)
+5. Afficher bilan journalier
+6. Exporter rapport journalier
+7. Quitter
+Choix : 
+===== DELESTAGE MANUEL =====
+Entrer l'identifiant du noeud (ex N05) : Noeud introuvable.
+
+===== SUPERVISION RESEAU ELECTRIQUE =====
+1. Charger configuration reseau
+2. Afficher etat actuel des noeuds
+3. Simuler une heure (avancer de 1h dans la courbe)
+4. Declencher delestage manuel (choix du noeud)
+5. Afficher bilan journalier
+6. Exporter rapport journalier
+7. Quitter
+Choix : Fermeture du programme.
+
+Programme termine.

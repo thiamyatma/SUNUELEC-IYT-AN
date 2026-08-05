@@ -1,0 +1,29 @@
+Avant tri :
+  N01 Hopital      12.00 kwh
+  N02 Ecole        45.50 kwh
+  N03 Pompe Eau     3.20 kwh
+  N04 Marche       88.10 kwh
+  N05 Resid A      20.00 kwh
+  N06 Resid B      67.40 kwh
+  N07 Resid C       1.50 kwh
+  N08 Resid D      99.90 kwh
+  N09 Commerce 1   30.30 kwh
+  N10 Commerce 2   55.00 kwh
+  N11 Eclairage     7.70 kwh
+  N12 Divers       40.20 kwh
+
+Apres tri :
+  N08 Resid D      99.90 kwh
+  N04 Marche       88.10 kwh
+  N06 Resid B      67.40 kwh
+  N10 Commerce 2   55.00 kwh
+  N02 Ecole        45.50 kwh
+  N12 Divers       40.20 kwh
+  N09 Commerce 1   30.30 kwh
+  N05 Resid A      20.00 kwh
+  N01 Hopital      12.00 kwh
+  N11 Eclairage     7.70 kwh
+  N03 Pompe Eau     3.20 kwh
+  N07 Resid C       1.50 kwh
+
+Ordre decroissant : OUI

@@ -1,0 +1,40 @@
+
+====================================
+  SYSTEME DE SUPERVISION RESEAU
+  ELECTRIQUE SUNUELEC IYT_AN
+====================================
+
+===== SUPERVISION RESEAU ELECTRIQUE =====
+1. Charger configuration reseau
+2. Afficher etat actuel des noeuds
+3. Simuler une heure (avancer de 1h dans la courbe)
+4. Declencher delestage manuel (choix du noeud)
+5. Afficher bilan journalier
+6. Exporter rapport journalier
+7. Quitter
+Choix : 
+========== ETAT DES NOEUDS ==========
+N01 - Hopital      |  8.50 kw | Priorite 1 | ON  | Energie :     0.00 kwh
+N02 - Ecole        |  4.20 kw | Priorite 1 | ON  | Energie :     0.00 kwh
+N03 - Pompe Eau    |  3.00 kw | Priorite 1 | ON  | Energie :     0.00 kwh
+N04 - Marche       |  5.80 kw | Priorite 2 | ON  | Energie :     0.00 kwh
+N05 - Resid A      |  6.10 kw | Priorite 2 | ON  | Energie :     0.00 kwh
+N06 - Resid B      |  5.30 kw | Priorite 2 | ON  | Energie :     0.00 kwh
+N07 - Resid C      |  4.70 kw | Priorite 3 | ON  | Energie :     0.00 kwh
+N08 - Resid D      |  4.40 kw | Priorite 3 | ON  | Energie :     0.00 kwh
+N09 - Commerce 1   |  3.90 kw | Priorite 3 | ON  | Energie :     0.00 kwh
+N10 - Commerce 2   |  3.20 kw | Priorite 3 | ON  | Energie :     0.00 kwh
+N11 - Eclairage    |  2.10 kw | Priorite 2 | ON  | Energie :     0.00 kwh
+N12 - Divers       |  1.80 kw | Priorite 3 | ON  | Energie :     0.00 kwh
+
+===== SUPERVISION RESEAU ELECTRIQUE =====
+1. Charger configuration reseau
+2. Afficher etat actuel des noeuds
+3. Simuler une heure (avancer de 1h dans la courbe)
+4. Declencher delestage manuel (choix du noeud)
+5. Afficher bilan journalier
+6. Exporter rapport journalier
+7. Quitter
+Choix : Fermeture du programme.
+
+Programme termine.

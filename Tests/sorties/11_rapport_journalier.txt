@@ -1,0 +1,30 @@
+========================================
+BILAN ENERGETIQUE - 05-08-2026
+========================================
+
+CONSOMMATION PAR NOEUD (kWh)
+N01 Hopital : 204.0 kWh
+N02 Ecole : 100.8 kWh
+N03 Pompe Eau : 72.0 kWh
+N04 Marche : 0.0 kWh
+N05 Resid A : 0.0 kWh
+N06 Resid B : 0.0 kWh
+N07 Resid C : 0.0 kWh
+N08 Resid D : 0.0 kWh
+N09 Commerce 1 : 0.0 kWh
+N10 Commerce 2 : 0.0 kWh
+N11 Eclairage : 0.0 kWh
+N12 Divers : 0.0 kWh
+
+PRODUCTION TOTALE
+Solaire : 112.2 kWh
+Reseau national : 262.5 kWh
+Total disponible : 374.7 kWh
+
+STATISTIQUES
+Consommation totale: 376.8 kWh
+Taux couverture PV : 29.8 %
+Nb delestages : 9
+Nb retablissements : 0
+Sauvegarder bilan : OK
+========================================
