@@ -3,7 +3,6 @@
 
 #include "structures.h"
 
-
 /*
  * Recherche sequentielle d'un noeud par son identifiant.
  *
@@ -24,6 +23,5 @@ Noeud* recherche_noeud_par_id(
     int n,
     const char *id
 );
-
 
 #endif

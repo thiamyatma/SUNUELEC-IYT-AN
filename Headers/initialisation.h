@@ -3,7 +3,6 @@
 
 #include "structures.h"
 
-
 /*
  * Initialise les 12 noeuds du mini-reseau electrique.
  *
@@ -49,6 +48,5 @@ void initialiser_noeuds(Noeud noeuds[]);
  */
 
 void initialiser_courbe(PointCourbe courbe[]);
-
 
 #endif

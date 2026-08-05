@@ -7,12 +7,7 @@
 
 #define NB_NOEUDS          12
 #define NB_POINTS_COURBE   24
-/*
- * MAX_EVENTS : une journee complete peut generer plusieurs
- * delestages et retablissements par heure. 500 laisse une
- * marge confortable pour une simulation 24 h.
- */
-#define MAX_EVENTS         500
+#define MAX_EVENTS         200
 
 /*=========================================================
  * Seuils du réseau
@@ -44,7 +39,7 @@ typedef struct
     char id[4];              /* ex : N01 */
     char nom[30];            /* nom du noeud */
 
-    float puissance_kw;      /* puissance nominale */
+    float puissance_kW;      /* puissance nominale */
 
     int priorite;            /* 1 = critique
                                 2 = important
@@ -53,13 +48,14 @@ typedef struct
     int etat;                /* 1 = ON
                                 0 = OFF */
 
-    float energie_kwh;       /* énergie consommée */
+    float energie_kWh;       /* énergie consommée */
 
-    float cos_phi;  
+    float cos_phi;
     float consommation_horaire[NB_POINTS_COURBE];
              /* facteur de puissance */
 
 } Noeud;
+
 
 /*=========================================================
  * Structure PointCourbe
@@ -69,14 +65,15 @@ typedef struct
 {
     int heure;
 
-    float p_solaire_kw;
-    float p_reseau_kw;
+    float p_solaire_kW;
+    float p_reseau_kW;
 
-    float p_charge_kw;
+    float p_charge_kW;
 
     float taux_charge;
 
 } PointCourbe;
+
 
 /*=========================================================
  * Structure Evenement

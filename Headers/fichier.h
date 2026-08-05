@@ -3,7 +3,6 @@
 
 #include "structures.h"
 
-
 /*=========================================================
  * Structure utilisée pour le bilan journalier
  *=========================================================*/
@@ -24,7 +23,6 @@ typedef struct
 } DonneesBilan;
 
 
-
 /*=========================================================
  * Chargement de la courbe CSV
  *=========================================================*/
@@ -39,7 +37,7 @@ typedef struct
     0,0.0,15.0
     1,0.0,14.8
 
-    Fichier de référence : donnees/courbe.csv
+    Fichier de référence : donnees/courbe_charge.csv
 
     Entrees :
         nom_fichier : chemin du fichier CSV
@@ -56,7 +54,6 @@ int charger_courbe_csv(
     PointCourbe courbe[],
     int n_courbe
 );
-
 
 
 /*=========================================================
@@ -78,7 +75,6 @@ int sauvegarder_noeuds(
 );
 
 
-
 /*
     Charge les noeuds depuis un fichier binaire.
 
@@ -95,7 +91,6 @@ int charger_noeuds(
     Noeud tableau[],
     int n_noeud
 );
-
 
 
 /*=========================================================
@@ -116,7 +111,6 @@ int ajouter_evenement_log(
     const char *nom_fichier,
     Evenement event
 );
-
 
 
 /*=========================================================
@@ -147,6 +141,5 @@ int generer_bilan_journalier(
     int n_noeud,
     DonneesBilan bilan
 );
-
 
 #endif

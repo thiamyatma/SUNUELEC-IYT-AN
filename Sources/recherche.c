@@ -2,8 +2,6 @@
 
 #include "../Headers/recherche.h"
 
-
-
 /*
     Recherche séquentielle d'un noeud
     par son identifiant.
@@ -16,24 +14,20 @@
     - NULL si aucun noeud correspondant
 */
 
-
 Noeud* recherche_noeud_par_id(
     Noeud noeuds[],
     int n,
     const char *id
 )
 {
-
     for(int i = 0; i < n; i++)
     {
-
         /*
             Comparaison des identifiants
         */
 
         if(strcmp(noeuds[i].id, id) == 0)
         {
-
             /*
                 Retourne l'adresse réelle
                 de la case du tableau.
@@ -44,17 +38,12 @@ Noeud* recherche_noeud_par_id(
             */
 
             return &noeuds[i];
-
         }
-
     }
-
-
 
     /*
         Aucun noeud trouvé
     */
 
     return NULL;
-
 }

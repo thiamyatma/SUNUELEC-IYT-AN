@@ -3,7 +3,6 @@
 
 #include "structures.h"
 
-
 /*
  * Ecrit la date et l'heure courantes au format
  * "JJ/MM/AAAA HH:MM" dans date[].
@@ -12,6 +11,38 @@
  *  - date : tampon d'au moins 20 caracteres.
  */
 void obtenir_horodatage(char date[]);
+
+
+/*
+ * Ecrit la date courante au format "JJ-MM-AAAA" dans date[].
+ *
+ * Utilisee pour nommer le rapport journalier
+ * bilan_JJ-MM-AAAA.txt.
+ *
+ * Entree :
+ *  - date : tampon d'au moins 11 caracteres.
+ */
+void obtenir_date_fichier(char date[]);
+
+
+/*
+ * Enregistre un evenement horodate dans events[].
+ *
+ * Centralise l'horodatage, la copie sure des chaines et le
+ * controle de saturation du tableau.
+ *
+ * Entrees/sorties :
+ *  - events[]  : tableau complete
+ *  - nb_events : compteur incremente
+ */
+void ajouter_evenement(
+    Evenement events[],
+    int *nb_events,
+    const char type[],
+    const char id[],
+    const char message[],
+    float valeur
+);
 
 
 /*
@@ -72,7 +103,7 @@ float calcul_production_disponible(
 int delestage_automatique(
     Noeud noeuds[],
     int n,
-    float deficit_kw,
+    float deficit_kW,
     Evenement events[],
     int *nb_events
 );
@@ -88,7 +119,7 @@ int delestage_automatique(
 void retablissement_progressif(
     Noeud noeuds[],
     int n,
-    float marge_kw,
+    float marge_kW,
     Evenement events[],
     int *nb_events
 );
@@ -131,6 +162,5 @@ void verifier_facteur_puissance(
     Evenement events[],
     int *nb_events
 );
-
 
 #endif

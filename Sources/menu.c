@@ -1,7 +1,5 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
-
 
 #include "../Headers/menu.h"
 #include "../Headers/affichage.h"
@@ -10,10 +8,6 @@
 #include "../Headers/fichier.h"
 #include "../Headers/initialisation.h"
 #include "../Headers/supervision.h"
-#include "../Headers/tri.h"
-#include "../Headers/recherche.h"
-
-
 
 void vider_buffer(void)
 {
@@ -24,33 +18,20 @@ void vider_buffer(void)
 }
 
 
-
-
-
-
 void afficher_menu(void)
 {
-
-    printf("\n========== SUPERVISION RESEAU ELECTRIQUE ==========\n");
+    printf("\n===== SUPERVISION RESEAU ELECTRIQUE =====\n");
 
     printf("1. Charger configuration reseau\n");
     printf("2. Afficher etat actuel des noeuds\n");
-    printf("3. Simuler une heure\n");
-    printf("4. Delestage manuel\n");
+    printf("3. Simuler une heure (avancer de 1h dans la courbe)\n");
+    printf("4. Declencher delestage manuel (choix du noeud)\n");
     printf("5. Afficher bilan journalier\n");
     printf("6. Exporter rapport journalier\n");
-    printf("7. Rechercher un noeud\n");
-    printf("8. Trier les noeuds par consommation\n");
-    printf("9. Quitter\n");
-    printf("10. Simuler une journee complete (24h)\n");
-    printf("11. Reinitialiser le reseau\n");
-    printf("12. Charger la courbe de production (CSV)\n");
+    printf("7. Quitter\n");
 
-    printf("Votre choix : ");
-
+    printf("Choix : ");
 }
-
-
 
 
 /*
@@ -67,27 +48,16 @@ static void journaliser_nouveaux_evenements(
     int *deja_ecrits
 )
 {
-
     for(int i = *deja_ecrits; i < nb_events; i++)
     {
-
         ajouter_evenement_log(
             "donnees/evenements.log",
             events[i]
         );
-
     }
 
-
     *deja_ecrits = nb_events;
-
 }
-
-
-
-
-
-
 
 
 void gestion_choix(
@@ -97,53 +67,43 @@ void gestion_choix(
     int *nb_events
 )
 {
-
     int choix;
 
     int heure = 0;
 
     int events_journalises = 0;
 
-
-
     do
     {
-
         afficher_menu();
-
-
 
         if(scanf("%d",&choix)!=1)
         {
-
             vider_buffer();
 
             printf("Choix invalide.\n");
 
             continue;
-
         }
-
 
         vider_buffer();
 
-
-
         switch(choix)
         {
-
-
         case 1:
         {
+            /*
+                Etat des noeuds : fichier binaire,
+                ou configuration initiale si le
+                fichier est absent ou incoherent.
+            */
 
             if(charger_noeuds(
                 "donnees/noeuds.dat",
                 noeuds,
                 NB_NOEUDS))
             {
-
                 int actifs = 0;
-
 
                 for(int i = 0; i < NB_NOEUDS; i++)
                 {
@@ -153,92 +113,76 @@ void gestion_choix(
                     }
                 }
 
-
                 printf(
                 "Configuration chargee (%d/%d noeuds ON).\n",
                 actifs,
                 NB_NOEUDS
                 );
-
-
-                printf(
-                "Note : etats et energies proviennent de la "
-                "sauvegarde precedente.\n"
-                "Utiliser le choix 11 pour repartir d'un reseau neuf.\n"
-                );
-
             }
 
             else
             {
-
                 printf(
                 "Sauvegarde absente ou incoherente : "
                 "creation configuration initiale.\n"
                 );
 
-
                 initialiser_noeuds(noeuds);
-
 
                 sauvegarder_noeuds(
                     "donnees/noeuds.dat",
                     noeuds,
                     NB_NOEUDS
                 );
-
             }
 
-
-
             /*
-                Initialisation courbe production
+                Courbe de production : fichier CSV,
+                ou courbe du cahier des charges si
+                la lecture est incomplete.
             */
 
-            initialiser_courbe(courbe);
+            int points =
+                charger_courbe_csv(
+                    "donnees/courbe_charge.csv",
+                    courbe,
+                    NB_POINTS_COURBE
+                );
 
+            if(points == NB_POINTS_COURBE)
+            {
+                printf(
+                "Courbe de production chargee (%d points).\n",
+                points
+                );
+            }
+            else
+            {
+                printf(
+                "Lecture CSV incomplete (%d/%d points) : "
+                "courbe par defaut utilisee.\n",
+                points,
+                NB_POINTS_COURBE
+                );
 
+                initialiser_courbe(courbe);
+            }
 
             break;
-
         }
-
-
-
-
-
-
 
         case 2:
         {
-
             afficherListeNoeuds(
                 noeuds,
                 NB_NOEUDS
             );
 
-
             break;
-
         }
-
-
-
-
-
-
-
 
         case 3:
         {
-
-
-            printf(
-                "\nSimulation heure %d\n",
-                heure
-            );
-
-
             simuler_heure(
                 noeuds,
                 NB_NOEUDS,
@@ -248,19 +192,11 @@ void gestion_choix(
                 nb_events
             );
 
-
-
             sauvegarder_noeuds(
                 "donnees/noeuds.dat",
                 noeuds,
                 NB_NOEUDS
             );
-
-
-
-            /*
-                Sauvegarde historique événements
-            */
 
             journaliser_nouveaux_evenements(
                 events,
@@ -268,30 +204,16 @@ void gestion_choix(
                 &events_journalises
             );
 
-
-
             heure++;
-
 
             if(heure >= NB_POINTS_COURBE)
                 heure = 0;
 
-
-
             break;
-
         }
-
-
-
-
-
-
 
         case 4:
         {
-
-
             delestage_manuel(
                 noeuds,
                 NB_NOEUDS,
@@ -299,13 +221,11 @@ void gestion_choix(
                 nb_events
             );
 
-
             journaliser_nouveaux_evenements(
                 events,
                 *nb_events,
                 &events_journalises
             );
-
 
             sauvegarder_noeuds(
                 "donnees/noeuds.dat",
@@ -313,21 +233,11 @@ void gestion_choix(
                 NB_NOEUDS
             );
 
-
             break;
-
         }
-
-
-
-
-
-
 
         case 5:
         {
-
-
             bilan_journalier(
                 noeuds,
                 NB_NOEUDS,
@@ -337,45 +247,39 @@ void gestion_choix(
                 *nb_events
             );
 
-
             break;
-
         }
-
-
-
-
-
-
-
 
         case 6:
         {
-
-
             DonneesBilan bilan = {0};
 
-            char date[20];
+            char date[11];
 
+            char chemin[64];
 
+            /*
+                Le sujet impose un rapport nomme
+                bilan_JJ-MM-AAAA.txt
+            */
 
-            obtenir_horodatage(date);
+            obtenir_date_fichier(date);
 
-
+            snprintf(
+                chemin,
+                sizeof(chemin),
+                "donnees/bilan_%s.txt",
+                date
+            );
 
             for(int i=0;i<NB_POINTS_COURBE;i++)
             {
-
                 bilan.prod_solaire +=
-                    courbe[i].p_solaire_kw;
-
+                    courbe[i].p_solaire_kW;
 
                 bilan.prod_reseau +=
-                    courbe[i].p_reseau_kw;
-
+                    courbe[i].p_reseau_kW;
             }
-
-
 
             bilan.consommation_totale =
                 calcul_consommation_totale(
@@ -383,317 +287,72 @@ void gestion_choix(
                     NB_NOEUDS
                 );
 
+            /*
+                Taux de couverture solaire au sens du sujet :
+                part de la consommation reelle couverte par
+                la production photovoltaique.
+            */
 
-            bilan.taux_couverture_pv =
-                calcul_taux_couverture_pv(
-                    courbe,
-                    NB_POINTS_COURBE
-                );
-
-
-
+            if(bilan.consommation_totale > 0)
+            {
+                bilan.taux_couverture_pv =
+                    (bilan.prod_solaire /
+                     bilan.consommation_totale) * 100.0f;
+            }
 
             for(int i=0;i<*nb_events;i++)
             {
-
                 if(strcmp(events[i].type,
                     "DELESTAGE")==0)
                 {
                     bilan.nb_delestages++;
                 }
 
-
                 if(strcmp(events[i].type,
                     "RETABLISSEMENT")==0)
                 {
                     bilan.nb_retablissements++;
                 }
-
             }
 
-
-
-
-
             if(generer_bilan_journalier(
-                "donnees/bilan_journalier.txt",
+                chemin,
                 date,
                 noeuds,
                 NB_NOEUDS,
                 bilan))
             {
-
                 printf(
-                "Rapport genere.\n"
+                "Rapport genere : %s\n",
+                chemin
                 );
-
             }
             else
             {
-
                 printf(
                 "Erreur generation rapport.\n"
                 );
-
             }
 
-
-
             break;
-
         }
-
-
-
-
-
-
 
         case 7:
         {
-
-
-            char id[4];
-
-
-            printf(
-                "ID du noeud : "
-            );
-
-
-            scanf("%3s",id);
-
-
-
-            Noeud *n =
-            recherche_noeud_par_id(
-                noeuds,
-                NB_NOEUDS,
-                id
-            );
-
-
-
-            if(n)
-            {
-
-                printf(
-                "%s - %s : %.2f kw\n",
-                n->id,
-                n->nom,
-                n->puissance_kw
-                );
-
-            }
-            else
-            {
-
-                printf(
-                "Noeud introuvable.\n"
-                );
-
-            }
-
-
-
-            break;
-
-        }
-
-
-
-
-
-
-
-        case 8:
-        {
-
-
-            trier_noeuds_par_consommation(
-                noeuds,
-                NB_NOEUDS
-            );
-
-
-            afficherListeNoeuds(
-                noeuds,
-                NB_NOEUDS
-            );
-
-
-            break;
-
-        }
-
-
-
-
-
-
-
-        case 9:
-        {
-
             printf(
             "Fermeture du programme.\n"
             );
 
-
             break;
-
         }
-
-
-
-
-        case 10:
-        {
-
-
-            simuler_journee(
-                noeuds,
-                NB_NOEUDS,
-                courbe,
-                events,
-                nb_events
-            );
-
-
-            heure = 0;
-
-
-            journaliser_nouveaux_evenements(
-                events,
-                *nb_events,
-                &events_journalises
-            );
-
-
-            sauvegarder_noeuds(
-                "donnees/noeuds.dat",
-                noeuds,
-                NB_NOEUDS
-            );
-
-
-            break;
-
-        }
-
-
-
-
-        case 11:
-        {
-
-            /*
-                Repart d'un reseau neuf :
-                tous les noeuds ON, energie a 0.
-            */
-
-            initialiser_noeuds(noeuds);
-
-            initialiser_courbe(courbe);
-
-
-            *nb_events = 0;
-
-            events_journalises = 0;
-
-            heure = 0;
-
-
-            sauvegarder_noeuds(
-                "donnees/noeuds.dat",
-                noeuds,
-                NB_NOEUDS
-            );
-
-
-            printf(
-            "Reseau reinitialise : %d noeuds ON, energie a 0.\n",
-            NB_NOEUDS
-            );
-
-
-            break;
-
-        }
-
-
-
-
-        case 12:
-        {
-
-            int points =
-                charger_courbe_csv(
-                    "donnees/courbe.csv",
-                    courbe,
-                    NB_POINTS_COURBE
-                );
-
-
-            if(points == NB_POINTS_COURBE)
-            {
-
-                printf(
-                "Courbe chargee depuis donnees/courbe.csv "
-                "(%d points).\n",
-                points
-                );
-
-            }
-            else
-            {
-
-                /*
-                    Fichier absent ou incomplet :
-                    on repart de la courbe du cahier
-                    des charges pour ne pas simuler
-                    avec des donnees partielles.
-                */
-
-                printf(
-                "Lecture CSV incomplete (%d/%d points) : "
-                "courbe par defaut rechargee.\n",
-                points,
-                NB_POINTS_COURBE
-                );
-
-
-                initialiser_courbe(courbe);
-
-            }
-
-
-            break;
-
-        }
-
-
-
-
-
-
 
         default:
         {
-
             printf(
             "Choix invalide.\n"
             );
-
+        }
         }
 
-
-        }
-
-
-
-    }while(choix!=9);
-
-
-
+    }while(choix!=7);
 }

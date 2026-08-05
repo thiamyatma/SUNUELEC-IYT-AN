@@ -3,7 +3,6 @@
 
 #include "structures.h"
 
-
 /*
  * Affiche un titre formaté pour les différentes sections
  * du programme.
@@ -15,7 +14,6 @@
  *      affichage console.
  */
 void afficherEnteteEcran(const char* titre);
-
 
 
 /*
@@ -32,7 +30,6 @@ void afficherUnNoeudEcran(
     const Noeud* noeud,
     float puissance_inst
 );
-
 
 
 /*
@@ -52,6 +49,5 @@ void afficherListeNoeuds(
     Noeud noeuds[],
     int n
 );
-
 
 #endif
