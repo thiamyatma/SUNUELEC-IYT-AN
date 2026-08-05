@@ -71,8 +71,9 @@ void ajouter_evenement(
     Calcule la puissance totale active
     uniquement des noeuds ON
 
-    Fonction de calcul pur : les alertes cos_phi
-    sont traitées par verifier_facteur_puissance().
+    On ne fait que la somme ici. Les alertes cos_phi
+    sont dans verifier_facteur_puissance(), sinon elles
+    s'affichaient plusieurs fois par heure simulee.
 */
 float calcul_puissance_totale(Noeud noeuds[], int n)
 {
@@ -131,11 +132,11 @@ void verifier_facteur_puissance(
 /*
     Recherche du noeud à couper dans une priorité donnée.
 
-    Stratégie :
-    1) le plus petit noeud qui couvre à lui seul le déficit
-       (évite de couper plus que nécessaire) ;
-    2) sinon le plus gros noeud disponible, pour réduire le
-       déficit au plus vite et limiter le nombre de coupures.
+    On cherche d'abord le plus petit noeud qui suffit à lui
+    seul à combler le déficit, comme ça on ne coupe pas plus
+    que nécessaire. Si aucun ne suffit, on prend le plus gros
+    pour faire baisser le déficit vite et éviter d'enchaîner
+    les coupures.
 
     Retour : index du noeud, -1 si aucun candidat.
 */

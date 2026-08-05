@@ -148,13 +148,12 @@ int charger_noeuds(
     }
 
     /*
-        Validation du contenu.
+        On verifie ce qu'on relit.
 
-        Un fichier ecrit par une version anterieure du
-        programme (structure Noeud differente) peut avoir
-        la bonne taille mais un contenu incoherent.
-        On refuse alors le chargement pour que l'appelant
-        reinitialise proprement le reseau.
+        Un vieux fichier .dat ecrit avant qu'on modifie la
+        structure Noeud peut avoir la bonne taille mais
+        contenir n'importe quoi. Dans ce cas on refuse le
+        chargement et l'appelant repart d'un reseau neuf.
     */
 
     for(int i = 0; i < n_noeud; i++)
@@ -238,8 +237,7 @@ int generer_bilan_journalier(
     }
 
     /*
-        Mise en forme imposee par la section VI.4
-        du cahier des charges.
+        Mise en page reprise du modele du sujet.
     */
 
     fprintf(

@@ -4,16 +4,12 @@
 #include "structures.h"
 
 /*
- * Enregistre la consommation reelle des noeuds pour une heure donnee.
+ * Note ce que chaque noeud a consomme pendant l'heure simulee :
+ * sa puissance s'il est ON, 0 s'il a ete coupe.
  *
- * Doit etre appele par la simulation APRES le delestage et le
- * retablissement, afin que le profil horaire reflete l'etat final :
- *
- *  - noeud ON  : consommation_horaire[heure] = puissance_kW
- *  - noeud OFF : consommation_horaire[heure] = 0
- *
- * C'est cet enregistrement qui alimente le calcul d'energie :
- * sans lui, energie_kWh reste a 0.
+ * A appeler apres le delestage et le retablissement, sinon on
+ * enregistre un etat qui n'est pas le bon. Sans cet appel,
+ * energie_kWh reste a 0.
  *
  * Entrees :
  *  - noeuds[] : tableau des charges.

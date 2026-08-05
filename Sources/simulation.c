@@ -74,9 +74,9 @@ void simuler_heure(
     );
 
     /*
-        Toute alerte est affichee ET archivee : la section VI.3
-        du cahier des charges demande que le journal contienne
-        les alertes au meme titre que les delestages.
+        Les alertes sont affichees et aussi enregistrees dans
+        les evenements, pour qu'on les retrouve dans le journal
+        comme les delestages.
     */
 
     if(taux_charge > SEUIL_DELESTAGE_PCT)

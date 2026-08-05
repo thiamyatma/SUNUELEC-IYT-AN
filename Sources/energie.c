@@ -82,9 +82,8 @@ float calcul_energie_noeud(
 /*
     Calcul energie de tous les noeuds.
 
-    Fonction de calcul : aucun affichage ici,
-    l'affichage est du ressort de affichage.c
-    et de bilan.c
+    On ne fait qu'un calcul ici, rien n'est affiche :
+    l'affichage se fait dans affichage.c et bilan.c
 */
 void calculer_energie_tous_noeuds(
     Noeud noeuds[],
