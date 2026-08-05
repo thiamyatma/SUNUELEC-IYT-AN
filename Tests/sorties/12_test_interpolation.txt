@@ -1,0 +1,18 @@
+Points fournis :
+  00h -> 15.00 kW
+  06h -> 15.00 kW
+  12h -> 16.80 kW
+  18h -> 16.10 kW
+  23h -> 14.20 kW
+
+Heures presentes dans la courbe (recherche exacte) :
+  06h -> 15.00 kW
+  12h -> 16.80 kW
+
+Heures absentes (interpolation lineaire) :
+  09h -> 15.90 kW  (attendu 15.90)
+  15h -> 16.45 kW  (attendu 16.45)
+  20h -> 15.34 kW  (attendu 15.34)
+
+Hors bornes :
+  25h -> 0.00 kW  (attendu 0.00)

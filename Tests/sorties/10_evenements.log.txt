@@ -1,0 +1,45 @@
+05/08/2026 15:30 | ALERTE | SYS | Surcharge critique du reseau | 353.33 kw
+05/08/2026 15:30 | DELESTAGE | N07 | Coupure automatique | 4.70 kw
+05/08/2026 15:30 | DELESTAGE | N08 | Coupure automatique | 4.40 kw
+05/08/2026 15:30 | DELESTAGE | N09 | Coupure automatique | 3.90 kw
+05/08/2026 15:30 | DELESTAGE | N10 | Coupure automatique | 3.20 kw
+05/08/2026 15:30 | DELESTAGE | N12 | Coupure automatique | 1.80 kw
+05/08/2026 15:30 | DELESTAGE | N05 | Coupure automatique | 6.10 kw
+05/08/2026 15:30 | DELESTAGE | N04 | Coupure automatique | 5.80 kw
+05/08/2026 15:30 | DELESTAGE | N06 | Coupure automatique | 5.30 kw
+05/08/2026 15:30 | DELESTAGE | N11 | Coupure automatique | 2.10 kw
+05/08/2026 15:30 | SURCHARGE | SYS | Deficit residuel apres delestage | 0.70 kw
+05/08/2026 15:30 | ALERTE | SYS | Surcharge critique du reseau | 106.08 kw
+05/08/2026 15:30 | SURCHARGE | SYS | Deficit residuel apres delestage | 0.90 kw
+05/08/2026 15:30 | ALERTE | SYS | Surcharge critique du reseau | 108.28 kw
+05/08/2026 15:30 | SURCHARGE | SYS | Deficit residuel apres delestage | 1.20 kw
+05/08/2026 15:30 | ALERTE | SYS | Surcharge critique du reseau | 110.56 kw
+05/08/2026 15:30 | SURCHARGE | SYS | Deficit residuel apres delestage | 1.50 kw
+05/08/2026 15:30 | ALERTE | SYS | Surcharge critique du reseau | 113.77 kw
+05/08/2026 15:30 | SURCHARGE | SYS | Deficit residuel apres delestage | 1.90 kw
+05/08/2026 15:30 | ALERTE | SYS | Surcharge critique du reseau | 116.30 kw
+05/08/2026 15:30 | SURCHARGE | SYS | Deficit residuel apres delestage | 2.20 kw
+05/08/2026 15:30 | ALERTE | SYS | Surcharge critique du reseau | 104.67 kw
+05/08/2026 15:30 | SURCHARGE | SYS | Deficit residuel apres delestage | 0.70 kw
+05/08/2026 15:30 | ALERTE | SYS | Surcharge critique du reseau | 104.67 kw
+05/08/2026 15:30 | SURCHARGE | SYS | Deficit residuel apres delestage | 0.70 kw
+05/08/2026 15:30 | ALERTE | SYS | Seuil d'alerte franchi | 95.15 kw
+05/08/2026 15:30 | ALERTE | SYS | Seuil d'alerte franchi | 91.28 kw
+05/08/2026 15:30 | ALERTE | SYS | Seuil d'alerte franchi | 92.35 kw
+05/08/2026 15:30 | ALERTE | SYS | Seuil d'alerte franchi | 93.45 kw
+05/08/2026 15:30 | ALERTE | SYS | Seuil d'alerte franchi | 92.35 kw
+05/08/2026 15:30 | ALERTE | SYS | Seuil d'alerte franchi | 92.35 kw
+05/08/2026 15:30 | ALERTE | SYS | Seuil d'alerte franchi | 92.35 kw
+05/08/2026 15:30 | ALERTE | SYS | Seuil d'alerte franchi | 92.35 kw
+05/08/2026 15:30 | ALERTE | SYS | Seuil d'alerte franchi | 98.12 kw
+05/08/2026 15:30 | ALERTE | SYS | Seuil d'alerte franchi | 97.52 kw
+05/08/2026 15:30 | ALERTE | SYS | Surcharge critique du reseau | 104.67 kw
+05/08/2026 15:30 | SURCHARGE | SYS | Deficit residuel apres delestage | 0.70 kw
+05/08/2026 15:30 | ALERTE | SYS | Surcharge critique du reseau | 104.67 kw
+05/08/2026 15:30 | SURCHARGE | SYS | Deficit residuel apres delestage | 0.70 kw
+05/08/2026 15:30 | ALERTE | SYS | Surcharge critique du reseau | 106.08 kw
+05/08/2026 15:30 | SURCHARGE | SYS | Deficit residuel apres delestage | 0.90 kw
+05/08/2026 15:30 | ALERTE | SYS | Surcharge critique du reseau | 108.28 kw
+05/08/2026 15:30 | SURCHARGE | SYS | Deficit residuel apres delestage | 1.20 kw
+05/08/2026 15:30 | ALERTE | SYS | Surcharge critique du reseau | 110.56 kw
+05/08/2026 15:30 | SURCHARGE | SYS | Deficit residuel apres delestage | 1.50 kw

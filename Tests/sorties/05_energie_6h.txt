@@ -1,0 +1,261 @@
+
+====================================
+  SYSTEME DE SUPERVISION RESEAU
+  ELECTRIQUE SUNUELEC IYT_AN
+====================================
+
+===== SUPERVISION RESEAU ELECTRIQUE =====
+1. Charger configuration reseau
+2. Afficher etat actuel des noeuds
+3. Simuler une heure (avancer de 1h dans la courbe)
+4. Declencher delestage manuel (choix du noeud)
+5. Afficher bilan journalier
+6. Exporter rapport journalier
+7. Quitter
+Choix : 
+====== SIMULATION 0h ======
+Production disponible : 15.00 kW
+Charge totale         : 53.00 kW
+Taux de charge        : 353.33 %
+ALERTE CRITIQUE : surcharge reseau 353.33 %
+
+ALERTE : surcharge reseau
+Deficit : 38.00 kW
+DELESTAGE : N07 - Resid C (4.70 kW)
+DELESTAGE : N08 - Resid D (4.40 kW)
+DELESTAGE : N09 - Commerce 1 (3.90 kW)
+DELESTAGE : N10 - Commerce 2 (3.20 kW)
+DELESTAGE : N12 - Divers (1.80 kW)
+DELESTAGE : N05 - Resid A (6.10 kW)
+DELESTAGE : N04 - Marche (5.80 kW)
+DELESTAGE : N06 - Resid B (5.30 kW)
+DELESTAGE : N11 - Eclairage (2.10 kW)
+Surcharge persistante : 0.70 kW non couverts (charges critiques conservees).
+
+Etat final : 15.70 kW alimentes (104.67 %)
+Simulation terminee.
+
+===== SUPERVISION RESEAU ELECTRIQUE =====
+1. Charger configuration reseau
+2. Afficher etat actuel des noeuds
+3. Simuler une heure (avancer de 1h dans la courbe)
+4. Declencher delestage manuel (choix du noeud)
+5. Afficher bilan journalier
+6. Exporter rapport journalier
+7. Quitter
+Choix : 
+====== SIMULATION 1h ======
+Production disponible : 14.80 kW
+Charge totale         : 15.70 kW
+Taux de charge        : 106.08 %
+ALERTE CRITIQUE : surcharge reseau 106.08 %
+
+ALERTE : surcharge reseau
+Deficit : 0.90 kW
+Surcharge persistante : 0.90 kW non couverts (charges critiques conservees).
+
+Etat final : 15.70 kW alimentes (106.08 %)
+Simulation terminee.
+
+===== SUPERVISION RESEAU ELECTRIQUE =====
+1. Charger configuration reseau
+2. Afficher etat actuel des noeuds
+3. Simuler une heure (avancer de 1h dans la courbe)
+4. Declencher delestage manuel (choix du noeud)
+5. Afficher bilan journalier
+6. Exporter rapport journalier
+7. Quitter
+Choix : 
+====== SIMULATION 2h ======
+Production disponible : 14.50 kW
+Charge totale         : 15.70 kW
+Taux de charge        : 108.28 %
+ALERTE CRITIQUE : surcharge reseau 108.28 %
+
+ALERTE : surcharge reseau
+Deficit : 1.20 kW
+Surcharge persistante : 1.20 kW non couverts (charges critiques conservees).
+
+Etat final : 15.70 kW alimentes (108.28 %)
+Simulation terminee.
+
+===== SUPERVISION RESEAU ELECTRIQUE =====
+1. Charger configuration reseau
+2. Afficher etat actuel des noeuds
+3. Simuler une heure (avancer de 1h dans la courbe)
+4. Declencher delestage manuel (choix du noeud)
+5. Afficher bilan journalier
+6. Exporter rapport journalier
+7. Quitter
+Choix : 
+====== SIMULATION 3h ======
+Production disponible : 14.20 kW
+Charge totale         : 15.70 kW
+Taux de charge        : 110.56 %
+ALERTE CRITIQUE : surcharge reseau 110.56 %
+
+ALERTE : surcharge reseau
+Deficit : 1.50 kW
+Surcharge persistante : 1.50 kW non couverts (charges critiques conservees).
+
+Etat final : 15.70 kW alimentes (110.56 %)
+Simulation terminee.
+
+===== SUPERVISION RESEAU ELECTRIQUE =====
+1. Charger configuration reseau
+2. Afficher etat actuel des noeuds
+3. Simuler une heure (avancer de 1h dans la courbe)
+4. Declencher delestage manuel (choix du noeud)
+5. Afficher bilan journalier
+6. Exporter rapport journalier
+7. Quitter
+Choix : 
+====== SIMULATION 4h ======
+Production disponible : 13.80 kW
+Charge totale         : 15.70 kW
+Taux de charge        : 113.77 %
+ALERTE CRITIQUE : surcharge reseau 113.77 %
+
+ALERTE : surcharge reseau
+Deficit : 1.90 kW
+Surcharge persistante : 1.90 kW non couverts (charges critiques conservees).
+
+Etat final : 15.70 kW alimentes (113.77 %)
+Simulation terminee.
+
+===== SUPERVISION RESEAU ELECTRIQUE =====
+1. Charger configuration reseau
+2. Afficher etat actuel des noeuds
+3. Simuler une heure (avancer de 1h dans la courbe)
+4. Declencher delestage manuel (choix du noeud)
+5. Afficher bilan journalier
+6. Exporter rapport journalier
+7. Quitter
+Choix : 
+====== SIMULATION 5h ======
+Production disponible : 13.50 kW
+Charge totale         : 15.70 kW
+Taux de charge        : 116.30 %
+ALERTE CRITIQUE : surcharge reseau 116.30 %
+
+ALERTE : surcharge reseau
+Deficit : 2.20 kW
+Surcharge persistante : 2.20 kW non couverts (charges critiques conservees).
+
+Etat final : 15.70 kW alimentes (116.30 %)
+Simulation terminee.
+
+===== SUPERVISION RESEAU ELECTRIQUE =====
+1. Charger configuration reseau
+2. Afficher etat actuel des noeuds
+3. Simuler une heure (avancer de 1h dans la courbe)
+4. Declencher delestage manuel (choix du noeud)
+5. Afficher bilan journalier
+6. Exporter rapport journalier
+7. Quitter
+Choix : 
+========== BILAN JOURNALIER ==========
+
+Consommation totale : 94.20 kwh
+Production solaire : 112.20 kwh
+Production reseau : 262.50 kwh
+Production totale disponible : 374.70 kwh
+Part du solaire dans la production : 29.94 %
+Couverture PV de la consommation : 119.11 %
+
+====== CONSOMMATION PAR NOEUD ======
+N01 - Hopital      :    51.00 kwh  [ON ]
+N02 - Ecole        :    25.20 kwh  [ON ]
+N03 - Pompe Eau    :    18.00 kwh  [ON ]
+N04 - Marche       :     0.00 kwh  [OFF]
+N05 - Resid A      :     0.00 kwh  [OFF]
+N06 - Resid B      :     0.00 kwh  [OFF]
+N07 - Resid C      :     0.00 kwh  [OFF]
+N08 - Resid D      :     0.00 kwh  [OFF]
+N09 - Commerce 1   :     0.00 kwh  [OFF]
+N10 - Commerce 2   :     0.00 kwh  [OFF]
+N11 - Eclairage    :     0.00 kwh  [OFF]
+N12 - Divers       :     0.00 kwh  [OFF]
+
+Plus gros consommateur : N01 - Hopital : 51.00 kwh
+Plus faible consommateur : N04 - Marche : 0.00 kwh
+
+Nombre de delestages : 9
+Nombre de retablissements : 0
+
+========== HISTORIQUE EVENEMENTS ==========
+
+[05/08/2026 15:29] ALERTE - SYS
+Surcharge critique du reseau : 353.33 kw
+
+[05/08/2026 15:29] DELESTAGE - N07
+Coupure automatique : 4.70 kw
+
+[05/08/2026 15:29] DELESTAGE - N08
+Coupure automatique : 4.40 kw
+
+[05/08/2026 15:29] DELESTAGE - N09
+Coupure automatique : 3.90 kw
+
+[05/08/2026 15:29] DELESTAGE - N10
+Coupure automatique : 3.20 kw
+
+[05/08/2026 15:29] DELESTAGE - N12
+Coupure automatique : 1.80 kw
+
+[05/08/2026 15:29] DELESTAGE - N05
+Coupure automatique : 6.10 kw
+
+[05/08/2026 15:29] DELESTAGE - N04
+Coupure automatique : 5.80 kw
+
+[05/08/2026 15:29] DELESTAGE - N06
+Coupure automatique : 5.30 kw
+
+[05/08/2026 15:29] DELESTAGE - N11
+Coupure automatique : 2.10 kw
+
+[05/08/2026 15:29] SURCHARGE - SYS
+Deficit residuel apres delestage : 0.70 kw
+
+[05/08/2026 15:29] ALERTE - SYS
+Surcharge critique du reseau : 106.08 kw
+
+[05/08/2026 15:29] SURCHARGE - SYS
+Deficit residuel apres delestage : 0.90 kw
+
+[05/08/2026 15:29] ALERTE - SYS
+Surcharge critique du reseau : 108.28 kw
+
+[05/08/2026 15:29] SURCHARGE - SYS
+Deficit residuel apres delestage : 1.20 kw
+
+[05/08/2026 15:29] ALERTE - SYS
+Surcharge critique du reseau : 110.56 kw
+
+[05/08/2026 15:29] SURCHARGE - SYS
+Deficit residuel apres delestage : 1.50 kw
+
+[05/08/2026 15:29] ALERTE - SYS
+Surcharge critique du reseau : 113.77 kw
+
+[05/08/2026 15:29] SURCHARGE - SYS
+Deficit residuel apres delestage : 1.90 kw
+
+[05/08/2026 15:29] ALERTE - SYS
+Surcharge critique du reseau : 116.30 kw
+
+[05/08/2026 15:29] SURCHARGE - SYS
+Deficit residuel apres delestage : 2.20 kw
+
+===== SUPERVISION RESEAU ELECTRIQUE =====
+1. Charger configuration reseau
+2. Afficher etat actuel des noeuds
+3. Simuler une heure (avancer de 1h dans la courbe)
+4. Declencher delestage manuel (choix du noeud)
+5. Afficher bilan journalier
+6. Exporter rapport journalier
+7. Quitter
+Choix : Fermeture du programme.
+
+Programme termine.
